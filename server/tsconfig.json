@@ -4,6 +4,7 @@
     "target": "esnext",
     "esModuleInterop": true,
     "strict": true,
+    "strictNullChecks": true,
     "moduleResolution": "node",
     "noEmit": true
   },

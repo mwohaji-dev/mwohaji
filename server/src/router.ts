@@ -8,9 +8,9 @@ const router = t.router;
 
 const helloRouter = router({
   greeting: publicProcedure
-    .input(z.object({ name: z.string() }).nullish())
+    .input(z.object({ name: z.string() }))
     .query(({ input }) => {
-      return `Hello ${input?.name ?? 'World1'}`;
+      return `Hello1 ${input?.name ?? 'World1'}`;
     }),
 });
 
