@@ -9,7 +9,7 @@ function TestComponent() {
   if (!data) {
     return null;
   }
-  return <Text>{data}</Text>;
+  return <Text >{data}</Text>;
 }
 
 export const trpc = createTRPCReact<AppRouter>();
