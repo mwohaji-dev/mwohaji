@@ -4,19 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev:server": "tsx watch src/server",
-    "dev:client": "wait-port 3000 && tsx watch src/client",
-    "dev": "run-p dev:* --print-label",
+    "dev": "tsx watch src/server",
     "lint": "eslint --cache --ext \".js,.ts,.tsx\" --report-unused-disable-directives src",
     "type-check": "tsc",
-    "build": "esbuild src/server.ts src/client.ts --bundle --packages=external --platform=node --format=esm --outdir=dist --sourcemap",
-    "start": "pnpm dev",
-    "test-dev": "start-server-and-test 'tsx src/server' 3000 'tsx src/client'",
-    "test-start": "start-server-and-test 'node dist/server' 3000 'node dist/client'"
+    "build": "esbuild src/server.ts src/client.ts --bundle --packages=external --platform=node --format=esm --outdir=dist --sourcemap"
   },
   "dependencies": {
-    "@trpc/client": "^10.34.0",
-    "@trpc/react-query": "^10.34.0",
     "@trpc/server": "^10.34.0",
     "express": "^4.17.1",
     "zod": "^3.0.0"
@@ -24,7 +17,6 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^18.16.16",
-    "@types/react": "^18.2.8",
     "esbuild": "^0.17.10",
     "eslint": "^8.40.0",
     "tsx": "^3.12.7",
