@@ -11,7 +11,8 @@
     "start": "tsx watch src/server",
     "lint": "eslint . --fix",
     "build": "tsc",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prisma:initdb": "prisma db push --force-reset"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
