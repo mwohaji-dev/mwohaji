@@ -3,8 +3,6 @@ import {createTRPCProxyClient, httpBatchLink} from '@trpc/client';
 import type {AppRouter} from './router';
 import prisma from './configs/prisma';
 
-type A = string;
-const a: A = 13;
 const client = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
