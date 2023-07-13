@@ -1,5 +1,6 @@
 import {initTRPC} from '@trpc/server';
 import {z} from 'zod';
+import prisma from './configs/prisma';
 
 const t = initTRPC.create();
 
@@ -9,13 +10,20 @@ const {router} = t;
 const helloRouter = router({
   greeting: publicProcedure
     .input(z.object({name: z.string()}))
-    .query(({input}) => {
-      return `Hello1 ${input?.name ?? 'World1'}`;
-    }),
+    .query(({input}) => `Hello1 ${input?.name ?? 'World1'}`),
+});
+
+const userRouter = router({
+  list: publicProcedure.query(async () => {
+    const users = await prisma.user.findMany();
+
+    return users;
+  }),
 });
 
 export const appRouter = router({
   hello: helloRouter,
+  user: userRouter,
 });
 
 export type AppRouter = typeof appRouter;

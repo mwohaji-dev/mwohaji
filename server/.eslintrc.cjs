@@ -1,21 +1,14 @@
 module.exports = {
-  "extends": [
-    "eslint:recommended",
-    "plugin:jest/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-type-checked"
+  "plugins": [
+    "jest"
   ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "root": true,
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
   "parserOptions": {
-    "ecmaVersion": 2022,
-    "project": true,
-    "tsconfigRootDir": __dirname,
-  },
-  "rules": {
-    "prettier/prettier": "error"
-  },
-  "ignorePatterns": ['.eslintrc.cjs']
+    "project": "./tsconfig.json"
+  }
 }
