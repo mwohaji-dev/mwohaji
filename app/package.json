@@ -26,7 +26,8 @@
     "ios:clean:force": "rm -rf ~/Library/Developer/Xcode/DerivedData/*",
     "test:coverage": "pnpm test -- --coverage --watchAll=false",
     "test": "jest",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "lint:ci": "eslint . --max-warnings=0"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.19",

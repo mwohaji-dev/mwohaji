@@ -10,6 +10,7 @@
     "test": "tsx src/client",
     "start": "tsx src/server",
     "lint": "eslint . --fix && pnpm typecheck",
+    "lint:ci": "eslint . --max-warnings=0 && pnpm typecheck",
     "typecheck": "tsc",
     "postinstall": "pnpm prisma:generate",
     "prisma:generate": "prisma generate",
