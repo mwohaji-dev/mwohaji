@@ -1,15 +1,15 @@
-import { initTRPC } from '@trpc/server';
-import { z } from 'zod';
+import {initTRPC} from '@trpc/server';
+import {z} from 'zod';
 
 const t = initTRPC.create();
 
 const publicProcedure = t.procedure;
-const router = t.router;
+const {router} = t;
 
 const helloRouter = router({
   greeting: publicProcedure
-    .input(z.object({ name: z.string() }))
-    .query(({ input }) => {
+    .input(z.object({name: z.string()}))
+    .query(({input}) => {
       return `Hello1 ${input?.name ?? 'World1'}`;
     }),
 });
