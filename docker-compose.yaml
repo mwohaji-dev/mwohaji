@@ -33,5 +33,5 @@ services:
       - |
         set -ex
         pnpm prisma:initdb
-        pnpm dev
+        pnpm start
 

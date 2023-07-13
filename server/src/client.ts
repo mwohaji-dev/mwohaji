@@ -3,6 +3,8 @@ import {createTRPCProxyClient, httpBatchLink} from '@trpc/client';
 import type {AppRouter} from './router';
 import prisma from './configs/prisma';
 
+type A = string;
+const a: A = 13;
 const client = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
@@ -20,7 +22,7 @@ const test = async () => {
       {name: 'name2', email: 'email2'},
       {name: 'name3', email: 'email3'},
     ],
-    skipDuplicates:true,
+    skipDuplicates: true,
   });
   const users = await client.user.list.query();
   console.log(users);
