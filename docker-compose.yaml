@@ -1,7 +1,14 @@
+version: '3.9'
 services:
   mysql:
-    image: mysql:8
+    image: mysql
     container_name: mysql
+    healthcheck:
+      # ping이 정상 적으로 반환되는 것을 정상 작동의 기준으로 지정한다.
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
     ports:
       - 3306:3306
     environment:
@@ -9,3 +16,22 @@ services:
       MYSQL_DATABASE: mwohaji
       MYSQL_USER: mwohaji-server
       MYSQL_PASSWORD: 1234
+      
+  server:
+    container_name: server
+    build: 
+      dockerfile: server/Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_URL=mysql://mwohaji-server:1234@mysql/mwohaji
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -ex
+        pnpm prisma:initdb
+        pnpm dev
+
