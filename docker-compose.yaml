@@ -33,6 +33,6 @@ services:
       - |
         set -ex
         sleep 10s # healthcheck를 해도 타이밍 이슈가 있어서 10초 정도 무조건 기다린다.
-        pnpm prisma:initdb
-        pnpm start
+        yarn prisma:initdb
+        yarn start
 

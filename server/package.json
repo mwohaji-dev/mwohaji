@@ -3,16 +3,16 @@
   "type": "module",
   "engines": {
     "node": ">=18",
-    "pnpm": ">=8"
+    "yarn": ">=1.22"
   },
   "scripts": {
     "dev": "tsx watch src/server",
     "test": "tsx src/client",
     "start": "tsx src/server",
-    "lint": "eslint . --fix && pnpm typecheck",
-    "lint:ci": "eslint . --max-warnings=0 && pnpm typecheck",
+    "lint": "eslint . --fix && yarn typecheck",
+    "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
     "typecheck": "tsc",
-    "postinstall": "pnpm prisma:generate",
+    "postinstall": "yarn prisma:generate",
     "prisma:generate": "prisma generate",
     "prisma:initdb": "prisma db push --force-reset"
   },

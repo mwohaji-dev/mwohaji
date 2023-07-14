@@ -2,7 +2,7 @@
 
 # 권장 버전
 - node >= 18
-- pnpm >= 8
+- yarn >= 1.22
 - docker >= 20
 - docker compose >= 2 (docker-compose X)
 

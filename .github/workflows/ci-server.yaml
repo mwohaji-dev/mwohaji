@@ -18,19 +18,13 @@ jobs:
         working-directory: server
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'pnpm'
-      - name: Test
-        run: ls ..
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: pnpm install
+        run: yarn install
         
       - name: Run lint
-        run: pnpm lint:ci
+        run: yarn lint:ci
