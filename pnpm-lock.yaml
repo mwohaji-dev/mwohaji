@@ -8,6 +8,9 @@ importers:
 
   app:
     dependencies:
+      '@react-native-firebase/analytics':
+        specifier: ^18.2.0
+        version: 18.2.0(@react-native-firebase/app@18.2.0)
       '@react-native-firebase/app':
         specifier: ^18.2.0
         version: 18.2.0(react-native@0.72.3)(react@18.2.0)
@@ -2421,6 +2424,14 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+
+  /@react-native-firebase/analytics@18.2.0(@react-native-firebase/app@18.2.0):
+    resolution: {integrity: sha512-Edua3uemAbInuUQLSKgK531aoPmgyGuBLrwM4ZHaNBNtgdRdATXluk8qHKu+b+/BkEuNqA4DEtXe8wl0DED1Aw==}
+    peerDependencies:
+      '@react-native-firebase/app': 18.2.0
+    dependencies:
+      '@react-native-firebase/app': 18.2.0(react-native@0.72.3)(react@18.2.0)
+    dev: false
 
   /@react-native-firebase/app@18.2.0(react-native@0.72.3)(react@18.2.0):
     resolution: {integrity: sha512-enVr+2Wl1LfYBb0TT7SI0L7RSXzOX25dPUVREw5W3ip05CTuJv10Nl7ffk7AfB53SU9IhPz5zJMIWncYQNodug==}
