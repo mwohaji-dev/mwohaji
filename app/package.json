@@ -11,6 +11,7 @@
     "ios:device": "react-native run-ios --device \"Namgunghyun13mini\"",
     "ios:release": "react-native run-ios --configuration Release",
     "ios:device:release": "react-native run-ios --device \"Namgunghyun13mini\" --configuration Release",
+    "ios:bundle": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'",
     "ios:clean": "cd ios && xcodebuild clean",
     "ios:clean:force": "rm -rf ~/Library/Developer/Xcode/DerivedData/*",
     "pod": "pnpx pod-install",
