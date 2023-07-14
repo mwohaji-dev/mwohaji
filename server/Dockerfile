@@ -5,7 +5,7 @@ WORKDIR /mwohaji/server
 
 COPY server/package.json ./
 # 패키지 설치
-RUN yarn install --immutable --immutable-cache --check-cache
+RUN yarn install --immutable
 # 나머지 파일 복사
 COPY server ./
 # prisma client 초기화
