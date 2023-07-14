@@ -6,6 +6,8 @@
 	<array>
 		<string>MaterialIcons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
+		<string>SpoqaHanSansNeo-Bold.ttf</string>
+		<string>SpoqaHanSansNeo-Regular.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>

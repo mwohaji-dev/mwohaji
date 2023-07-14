@@ -15,6 +15,11 @@ function TestComponent() {
       <Icon1 name="ab-testing" size={30} color="#900" />
       <Icon2 name="verified-user" size={30} color="#900" />
       <Text>started</Text>
+      <Text style={{fontFamily: '1234'}}>스포카한산즈네오</Text>
+      <Text style={{fontFamily: 'SpoqaHanSansNeo-Bold'}}>스포카한산즈네오</Text>
+      <Text style={{fontFamily: 'SpoqaHanSansNeo-Regular'}}>
+        스포카한산즈네오
+      </Text>
       <Text>{data}</Text>
     </View>
   );
