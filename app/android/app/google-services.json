@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "557826121072",
+    "project_id": "mwohaji-c8a10",
+    "storage_bucket": "mwohaji-c8a10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557826121072:android:8e28e761d05bfed9d783b5",
+        "android_client_info": {
+          "package_name": "com.mwohaji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557826121072-9kki80qu7eltuark9mfqgnff2tit9d5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mwohaji",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "557826121072-0dssooaeodgkubqd477nlu0djteuk5e8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIz1RAnJPPns80lc4msnlTJdy7e_XPgaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557826121072-0dssooaeodgkubqd477nlu0djteuk5e8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
