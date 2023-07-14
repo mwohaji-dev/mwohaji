@@ -1,18 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
+import 'react-native-gesture-handler';
 import React, {Suspense} from 'react';
-import {Text, Platform, View} from 'react-native';
 import type {AppRouter} from '../server/src/router';
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 function TestComponent() {
   const [data] = trpc.hello.greeting.useSuspenseQuery({name: 'my name'});
 
   return (
-    <View style={{marginTop: 100}}>
+    <View style={styles.container}>
       <Icon1 name="ab-testing" size={30} color="#900" />
       <Icon2 name="verified-user" size={30} color="#900" />
       <Text>started</Text>
@@ -45,7 +47,7 @@ const trpcClient = trpc.createClient({
 });
 // => { useQuery: ..., useMutation: ...}
 
-export default function App(): JSX.Element {
+function App(): JSX.Element {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
@@ -75,3 +77,17 @@ export default function App(): JSX.Element {
     </trpc.Provider>
   );
 }
+
+export default gestureHandlerRootHOC(App);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+});
