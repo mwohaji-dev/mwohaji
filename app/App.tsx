@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import 'react-native-gesture-handler';
+import codePush from 'react-native-code-push';
 import React, {Suspense} from 'react';
 import type {AppRouter} from '../server/src/router';
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
@@ -88,7 +89,9 @@ function App(): JSX.Element {
   );
 }
 
-export default gestureHandlerRootHOC(App);
+export default codePush({checkFrequency: codePush.CheckFrequency.ON_APP_START})(
+  gestureHandlerRootHOC(App),
+);
 
 const styles = StyleSheet.create({
   container: {
