@@ -58,7 +58,7 @@ const trpcClient = trpc.createClient({
 });
 // => { useQuery: ..., useMutation: ...}
 
-function App(): JSX.Element {
+function TestApp(): JSX.Element {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
@@ -89,9 +89,10 @@ function App(): JSX.Element {
   );
 }
 
-export default codePush({checkFrequency: codePush.CheckFrequency.ON_APP_START})(
-  gestureHandlerRootHOC(App),
-);
+const App = gestureHandlerRootHOC(TestApp);
+export default __DEV__
+  ? App
+  : codePush({checkFrequency: codePush.CheckFrequency.ON_APP_START})(App);
 
 const styles = StyleSheet.create({
   container: {
