@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Suspense} from 'react';
 import {Text, Platform, View} from 'react-native';
 import type {AppRouter} from '../server/src/router';
@@ -11,7 +12,6 @@ function TestComponent() {
   const [data] = trpc.hello.greeting.useSuspenseQuery({name: 'my name'});
 
   return (
-    // eslint-disable-next-line react-native/no-inline-styles
     <View style={{marginTop: 100}}>
       <Icon1 name="ab-testing" size={30} color="#900" />
       <Icon2 name="verified-user" size={30} color="#900" />
