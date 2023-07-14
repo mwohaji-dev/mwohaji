@@ -8,6 +8,9 @@ importers:
 
   app:
     dependencies:
+      '@react-native-masked-view/masked-view':
+        specifier: ^0.2.9
+        version: 0.2.9(react-native@0.72.3)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^4.29.19
         version: 4.29.19(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0)
@@ -26,6 +29,12 @@ importers:
       react-native:
         specifier: 0.72.3
         version: 0.72.3(@babel/core@7.22.8)(@babel/preset-env@7.22.7)(react@18.2.0)
+      react-native-linear-gradient:
+        specifier: ^2.7.3
+        version: 2.7.3(react-native@0.72.3)(react@18.2.0)
+      react-native-skeleton-placeholder:
+        specifier: ^5.2.4
+        version: 5.2.4(@react-native-masked-view/masked-view@0.2.9)(react-native-linear-gradient@2.7.3)(react-native@0.72.3)(react@18.2.0)
       react-native-vector-icons:
         specifier: ^9.2.0
         version: 9.2.0
@@ -2380,6 +2389,16 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+
+  /@react-native-masked-view/masked-view@0.2.9(react-native@0.72.3)(react@18.2.0):
+    resolution: {integrity: sha512-Hs4vKBKj+15VxHZHFtMaFWSBxXoOE5Ea8saoigWhahp8Mepssm0ezU+2pTl7DK9z8Y9s5uOl/aPb4QmBZ3R3Zw==}
+    peerDependencies:
+      react: '>=16'
+      react-native: '>=0.57'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.3(@babel/core@7.22.8)(@babel/preset-env@7.22.7)(react@18.2.0)
+    dev: false
 
   /@react-native/assets-registry@0.72.0:
     resolution: {integrity: sha512-Im93xRJuHHxb1wniGhBMsxLwcfzdYreSZVQGDoMJgkd6+Iky61LInGEHnQCTN0fKNYF1Dvcofb4uMmE1RQHXHQ==}
@@ -6556,6 +6575,30 @@ packages:
   /react-native-gradle-plugin@0.71.19:
     resolution: {integrity: sha512-1dVk9NwhoyKHCSxcrM6vY6cxmojeATsBobDicX0ZKr7DgUF2cBQRTKsimQFvzH8XhOVXyH8p4HyDSZNIFI8OlQ==}
     dev: true
+
+  /react-native-linear-gradient@2.7.3(react-native@0.72.3)(react@18.2.0):
+    resolution: {integrity: sha512-iyJszlZ1Ech2c+2qV+isMvvJKyoctR9ashDkhJg1/cuSF0vQaeLV1FAYTT3qW9doxChJGxVAFfYoxotH0yi3Iw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.3(@babel/core@7.22.8)(@babel/preset-env@7.22.7)(react@18.2.0)
+    dev: false
+
+  /react-native-skeleton-placeholder@5.2.4(@react-native-masked-view/masked-view@0.2.9)(react-native-linear-gradient@2.7.3)(react-native@0.72.3)(react@18.2.0):
+    resolution: {integrity: sha512-OZntVq1hU1UX33FltxK2ezT2v9vHIhV8YnEbnMWUCvxT0N9OsgD1qxiHm6qb9YRJVgq2o5z3S7dNPsPnDF/jNg==}
+    peerDependencies:
+      '@react-native-masked-view/masked-view': ^0.2.8
+      react: '>=0.14.8'
+      react-native: '>=0.50.1'
+      react-native-linear-gradient: ^2.5.6
+    dependencies:
+      '@react-native-masked-view/masked-view': 0.2.9(react-native@0.72.3)(react@18.2.0)
+      react: 18.2.0
+      react-native: 0.72.3(@babel/core@7.22.8)(@babel/preset-env@7.22.7)(react@18.2.0)
+      react-native-linear-gradient: 2.7.3(react-native@0.72.3)(react@18.2.0)
+    dev: false
 
   /react-native-vector-icons@9.2.0:
     resolution: {integrity: sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA==}
