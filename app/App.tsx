@@ -1,15 +1,23 @@
 import React from 'react';
-import {Text, Platform} from 'react-native';
+import {Text, Platform, View} from 'react-native';
 import type {AppRouter} from '../server/src/router';
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
 
 function TestComponent() {
   const {data} = trpc.hello.greeting.useQuery({name: 'my name'});
-  if (!data) {
-    return null;
-  }
-  return <Text>{data}</Text>;
+
+  return (
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{marginTop: 100}}>
+      <Icon1 name="ab-testing" size={30} color="#900" />
+      <Icon2 name="verified-user" size={30} color="#900" />
+      <Text>started</Text>
+      <Text>{data}</Text>
+    </View>
+  );
 }
 
 export const trpc = createTRPCReact<AppRouter>();
