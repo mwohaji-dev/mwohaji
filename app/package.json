@@ -21,7 +21,7 @@
     "android:build": "react-native build-android --mode=release",
     "android:clean": "rm -rf android/build && sudo rm -rf android/app/build && sudo rm -rf android/.gradle",
     "gradlew:clean": "cd android && ./gradlew clean && cd ..",
-    "postversion": "react-native-version",
+    "postversion": "react-native-version --never-amend",
     "codepush": "pnpm codepush:android && pnpm codepush:ios",
     "codepush:android": "appcenter codepush release-react -a [TODO] -d Production",
     "codepush:ios": "appcenter codepush release-react -a [TODO] -d Production",
