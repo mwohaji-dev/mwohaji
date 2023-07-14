@@ -8,7 +8,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 1s
       timeout: 1s
-      retries: 60
+      retries: 30
     ports:
       - 3306:3306
     environment:
@@ -32,6 +32,7 @@ services:
     command:
       - |
         set -ex
+        sleep 10s # healthcheck를 해도 타이밍 이슈가 있어서 10초 정도 무조건 기다린다.
         pnpm prisma:initdb
         pnpm start
 
