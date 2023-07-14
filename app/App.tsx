@@ -9,6 +9,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import MapView from 'react-native-maps';
 
 function TestComponent() {
   const [data] = trpc.hello.greeting.useSuspenseQuery({name: 'my name'});
@@ -24,6 +25,15 @@ function TestComponent() {
         스포카한산즈네오
       </Text>
       <Text>{data}</Text>
+      <MapView
+        style={{flex: 1}}
+        region={{
+          latitude: 37.5,
+          longitude: 126.9,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        }}
+      />
     </View>
   );
 }
