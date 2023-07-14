@@ -14,7 +14,6 @@
 		7EF972E386254B26D788C6F8 /* Pods_mwohaji_mwohajiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C04C6EF3A9BEE29A0963E4 /* Pods_mwohaji_mwohajiTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8555042FF36482C799938942 /* Pods_mwohaji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A34693CEE49F66ADA3A9B90 /* Pods_mwohaji.framework */; };
-		D21739CB2A61AD1B0080733A /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = D21739CA2A61AD1B0080733A /* main.jsbundle */; };
 		D28D40EA2A61427B00E9250E /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28D40E62A61427B00E9250E /* MaterialCommunityIcons.ttf */; };
 		D28D40EB2A61427B00E9250E /* SpoqaHanSansNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28D40E72A61427B00E9250E /* SpoqaHanSansNeo-Regular.ttf */; };
 		D28D40EC2A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28D40E82A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf */; };
@@ -49,7 +48,6 @@
 		66C04C6EF3A9BEE29A0963E4 /* Pods_mwohaji_mwohajiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mwohaji_mwohajiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mwohaji/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-mwohaji-mwohajiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mwohaji-mwohajiTests.release.xcconfig"; path = "Target Support Files/Pods-mwohaji-mwohajiTests/Pods-mwohaji-mwohajiTests.release.xcconfig"; sourceTree = "<group>"; };
-		D21739CA2A61AD1B0080733A /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		D28D40E62A61427B00E9250E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
 		D28D40E72A61427B00E9250E /* SpoqaHanSansNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.ttf"; sourceTree = "<group>"; };
 		D28D40E82A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				D28D9BDE2A61B79E00C74433 /* GoogleService-Info.plist */,
-				D21739CA2A61AD1B0080733A /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* mwohaji */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* mwohajiTests */,
@@ -269,7 +266,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D21739CB2A61AD1B0080733A /* main.jsbundle in Resources */,
 				D28D9BDF2A61B79F00C74433 /* GoogleService-Info.plist in Resources */,
 				D28D40EB2A61427B00E9250E /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 				D28D40EC2A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf in Resources */,

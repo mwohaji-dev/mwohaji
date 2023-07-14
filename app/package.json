@@ -25,7 +25,7 @@
     "postversion": "react-native-version --never-amend",
     "codepush": "yarn codepush:android && yarn codepush:ios",
     "codepush:android": "appcenter codepush release-react -a mwohaji/mwohaji-android -d Staging",
-    "codepush:ios": "appcenter codepush release-react -a mwohaji/mwohaji-ios -d Staging",
+    "codepush:ios": "appcenter codepush release-react -a mwohaji/mwohaji-ios -d Staging --plist-file ios/mwohaji/Info.plist",
     "test:coverage": "yarn test -- --coverage --watchAll=false",
     "test": "jest",
     "lint": "eslint . --fix",

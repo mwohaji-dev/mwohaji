@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">뭐하지?</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">vjxHhDS458mwtYH_9yiCOSFyRwDzllEn2mW0q</string>
 </resources>
