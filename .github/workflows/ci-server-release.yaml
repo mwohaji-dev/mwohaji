@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  DOCKER_TAG: asia-northeast3-docker.pkg.dev/mwohaji-c8a10/mwohaji-api:$GITHUB_SHA
+  DOCKER_TAG_PREFIX: asia-northeast3-docker.pkg.dev/mwohaji-c8a10/mwohaji-api
 
 jobs:
   push_to_gcr:
@@ -20,7 +20,7 @@ jobs:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     - name: Build image
-      run: docker build -f server/Dockerfile -t $DOCKER_TAG .
+      run: docker build -f server/Dockerfile -t $DOCKER_TAG_PREFIX:$GITHUB_SHA .
 
     - name: push
-      run: docker push $DOCKER_TAG
+      run: docker push $DOCKER_TAG_PREFIX:$GITHUB_SHA
