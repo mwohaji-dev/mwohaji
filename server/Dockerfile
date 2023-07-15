@@ -3,7 +3,7 @@ FROM node:18
 
 WORKDIR /mwohaji/server
 
-COPY server/package.json prisma/schema.prisma ./
+COPY server/package.json server/prisma/schema.prisma ./
 # 패키지 설치
 RUN yarn install --immutable
 # 나머지 파일 복사
