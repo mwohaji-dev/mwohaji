@@ -8,3 +8,5 @@ COPY server/package.json server/prisma/schema.prisma ./
 RUN yarn install --immutable
 # 나머지 파일 복사
 COPY server ./
+
+CMD yarn start
