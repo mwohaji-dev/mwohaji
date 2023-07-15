@@ -17,7 +17,14 @@ jobs:
       name: Authenticate to Google Cloud
       uses: 'google-github-actions/auth@v1'
       with:
+        token_format: 'access_token'
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - uses: 'docker/login-action@v1'
+      with:
+        registry: 'gcr.io'
+        username: 'oauth2accesstoken'
+        password: '${{ steps.auth.outputs.access_token }}'
 
     - name: Build image
       run: docker build -f server/Dockerfile -t $DOCKER_TAG_PREFIX:$GITHUB_SHA .
