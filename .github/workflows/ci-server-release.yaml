@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  DOCKER_TAG_PREFIX: asia-northeast3-docker.pkg.dev/mwohaji-c8a10/mwohaji-api
+  DOCKER_TAG_PREFIX: asia-northeast3-docker.pkg.dev/mwohaji-c8a10/mwohaji-api/mwohaji-api
 
 jobs:
   push_to_gcr:
