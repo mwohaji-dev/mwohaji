@@ -28,6 +28,7 @@ services:
       - 4000:4000
     environment:
       - DATABASE_URL=mysql://mwohaji-server:1234@mysql/mwohaji
+      - PORT=4000
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |

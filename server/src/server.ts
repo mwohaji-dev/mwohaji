@@ -1,6 +1,9 @@
 import {createExpressMiddleware} from '@trpc/server/adapters/express';
 import express from 'express';
+import {config} from 'dotenv';
 import {appRouter} from './router';
+
+config();
 
 const app = express();
 
@@ -14,4 +17,4 @@ app.use(
   }),
 );
 
-app.listen(4000);
+app.listen(process.env.PORT);
