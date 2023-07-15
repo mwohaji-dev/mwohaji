@@ -22,7 +22,7 @@ jobs:
 
     - uses: 'docker/login-action@v1'
       with:
-        registry: 'gcr.io'
+        registry: 'asia-northeast3-docker.pkg.dev'
         username: 'oauth2accesstoken'
         password: '${{ steps.auth.outputs.access_token }}'
 
