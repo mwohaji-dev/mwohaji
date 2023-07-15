@@ -27,7 +27,9 @@ jobs:
         password: '${{ steps.auth.outputs.access_token }}'
 
     - name: Build image
-      run: docker build -f server/Dockerfile -t $DOCKER_TAG_PREFIX:$GITHUB_SHA .
+      run: |
+        echo $DOCKER_TAG_PREFIX:$GITHUB_SHA
+        docker build -f server/Dockerfile -t $DOCKER_TAG_PREFIX:$GITHUB_SHA .
 
     - name: push
       run: docker push $DOCKER_TAG_PREFIX:$GITHUB_SHA
