@@ -1,0 +1,26 @@
+name: CI Server Release
+
+on:
+  push:
+    branches: [main]
+
+env:
+  DOCKER_TAG: asia-northeast3-docker.pkg.dev/mwohaji-c8a10/mwohaji-api:$GITHUB_SHA
+
+jobs:
+  push_to_gcr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: 'actions/checkout@v3'
+
+    - id: 'auth'
+      name: Authenticate to Google Cloud
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - name: Build image
+      run: docker build -f server/Dockerfile -t $DOCKER_TAG .
+
+    - name: push
+      run: docker push $DOCKER_TAG
