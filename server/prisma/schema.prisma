@@ -27,7 +27,7 @@ model Content {
 
 model MwohajiHashTagedInstagramPost {
   id           String  @id @default(cuid())
-  thumbnailUrl String
+  thumbnailUrl String  @db.Text
   iosLink      String
   aosLink      String
   meta         Json
