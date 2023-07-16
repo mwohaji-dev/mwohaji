@@ -92,7 +92,7 @@ function TestApp(): JSX.Element {
 const App = gestureHandlerRootHOC(TestApp);
 export default __DEV__
   ? App
-  : codePush({checkFrequency: codePush.CheckFrequency.ON_APP_START})(App);
+  : codePush({checkFrequency: codePush.CheckFrequency.ON_APP_RESUME})(App);
 
 const styles = StyleSheet.create({
   container: {
