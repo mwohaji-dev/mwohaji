@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/server",
-    "test": "tsx src/client",
+    "test": "tsx src/test",
     "start": "tsx src/server",
     "lint": "eslint . --fix && yarn typecheck",
     "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
