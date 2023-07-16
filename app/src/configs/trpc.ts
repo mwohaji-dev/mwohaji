@@ -3,6 +3,7 @@ import type {AppRouter} from '../../../server/src/router';
 export type {
   Content,
   MwohajiHashTagedInstagramPost,
+  ContentType,
 } from '../../../server/src/server';
 import {SERVER_BASE_URL} from '../constants/server';
 

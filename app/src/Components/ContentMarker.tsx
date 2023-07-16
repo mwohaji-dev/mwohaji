@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {Marker} from 'react-native-maps';
 import {Content} from '../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {markerIcon, markerStyle} from '../constants/styles';
+import {contentInfo} from '../constants/content';
 
 interface ContentMarkerProps {
   content: Content;
@@ -14,20 +14,20 @@ export default function ContentMarker({
   content: {latitude, longitude, id, type},
   highlight,
 }: ContentMarkerProps) {
+  const {markerIcon, markerStyle} = useMemo(() => contentInfo[type], [type]);
   const extraStyle = useMemo(
     () => ({
       ...(highlight ? styles.markerHighlight : {}),
-      ...markerStyle[type],
+      ...markerStyle,
     }),
-    [type, highlight],
+    [markerStyle, highlight],
   );
   const size = useMemo(() => (highlight ? 32 : 24), [highlight]);
-  const name = useMemo(() => markerIcon[type], [type]);
 
   return (
     <Marker key={id} coordinate={{latitude, longitude}}>
       <View style={[styles.marker, extraStyle]}>
-        <Icon size={size} color="#fff" name={name} />
+        <Icon size={size} color="#fff" name={markerIcon} />
       </View>
     </Marker>
   );

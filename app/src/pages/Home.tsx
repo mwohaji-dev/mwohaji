@@ -1,10 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import MapView from 'react-native-maps';
 import {trpc} from '../configs/trpc';
 import ContentMarker from '../Components/ContentMarker';
+import {contentTypes} from '../constants/content';
+import ContentTypeTag from '../Components/ContentTypeTag';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function Home(): JSX.Element {
+  const {top} = useSafeAreaInsets();
   const {data} = trpc.content.list.useQuery();
 
   return (
@@ -23,6 +27,14 @@ export default function Home(): JSX.Element {
           <ContentMarker key={content.id} content={content} highlight={false} />
         ))}
       </MapView>
+      <ScrollView
+        contentContainerStyle={styles.contentTypeContentContainer}
+        style={[styles.contentTypeContainer, {top}]}
+        horizontal>
+        {contentTypes.map(contentType => (
+          <ContentTypeTag key={contentType} contentType={contentType} />
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -30,6 +42,16 @@ export default function Home(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentTypeContainer: {
+    position: 'absolute',
+    marginTop: 16,
+    left: 0,
+    right: 0,
+  },
+  contentTypeContentContainer: {
+    paddingHorizontal: 16,
+    gap: 8,
   },
   map: {
     flex: 1,

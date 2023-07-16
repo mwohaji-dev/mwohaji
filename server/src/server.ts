@@ -3,7 +3,7 @@ import express from 'express';
 import {config} from 'dotenv';
 import {appRouter} from './router';
 
-export {Content, MwohajiHashTagedInstagramPost} from '@prisma/client';
+export * from '@prisma/client';
 
 config();
 

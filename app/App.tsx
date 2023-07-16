@@ -8,6 +8,7 @@ import {trpc, trpcClient} from './src/configs/trpc';
 import queryClient from './src/configs/reactQuery';
 import Home from './src/pages/Home';
 import BorderShadowLayout from './src/Components/BorderShadowLayout';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 function RNApp(): JSX.Element {
   useEffect(() => {
@@ -17,9 +18,11 @@ function RNApp(): JSX.Element {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <BorderShadowLayout>
-          <Home />
-        </BorderShadowLayout>
+        <SafeAreaProvider>
+          <BorderShadowLayout>
+            <Home />
+          </BorderShadowLayout>
+        </SafeAreaProvider>
       </QueryClientProvider>
     </trpc.Provider>
   );
