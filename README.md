@@ -6,6 +6,7 @@
 - docker >= 20
 - docker compose >= 2 (docker-compose X)
 
+# Dotenv setup
 
 # App
 ## Android
