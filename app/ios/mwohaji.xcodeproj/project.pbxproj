@@ -19,6 +19,7 @@
 		D28D40EC2A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28D40E82A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf */; };
 		D28D40ED2A61427B00E9250E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D28D40E92A61427B00E9250E /* MaterialIcons.ttf */; };
 		D28D9BDF2A61B79F00C74433 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D28D9BDE2A61B79E00C74433 /* GoogleService-Info.plist */; };
+		D298A5102A6427A900D060AE /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D298A50F2A6427A900D060AE /* BootSplash.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D28D40E82A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
 		D28D40E92A61427B00E9250E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		D28D9BDE2A61B79E00C74433 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D298A50F2A6427A900D060AE /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = mwohaji/BootSplash.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 		13B07FAE1A68108700A75B9A /* mwohaji */ = {
 			isa = PBXGroup;
 			children = (
+				D298A50F2A6427A900D060AE /* BootSplash.storyboard */,
 				D28D40E52A61427B00E9250E /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -269,6 +272,7 @@
 				D28D9BDF2A61B79F00C74433 /* GoogleService-Info.plist in Resources */,
 				D28D40EB2A61427B00E9250E /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 				D28D40EC2A61427B00E9250E /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				D298A5102A6427A900D060AE /* BootSplash.storyboard in Resources */,
 				D28D40ED2A61427B00E9250E /* MaterialIcons.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				D28D40EA2A61427B00E9250E /* MaterialCommunityIcons.ttf in Resources */,

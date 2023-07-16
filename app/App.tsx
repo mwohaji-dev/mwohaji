@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import 'react-native-gesture-handler';
 import codePush from 'react-native-code-push';
-import React, {Suspense} from 'react';
+import React, {Suspense, useEffect} from 'react';
+import RNBootSplash from 'react-native-bootsplash';
 import type {AppRouter} from '../server/src/router';
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -59,6 +60,10 @@ const trpcClient = trpc.createClient({
 // => { useQuery: ..., useMutation: ...}
 
 function TestApp(): JSX.Element {
+  useEffect(() => {
+    RNBootSplash.hide({fade: true});
+  }, []);
+
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
