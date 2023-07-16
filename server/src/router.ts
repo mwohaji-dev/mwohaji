@@ -7,23 +7,26 @@ const t = initTRPC.create();
 const publicProcedure = t.procedure;
 const {router} = t;
 
-const helloRouter = router({
-  greeting: publicProcedure
-    .input(z.object({name: z.string()}))
-    .query(({input}) => `Hello1 ${input?.name ?? 'World1'}`),
-});
-
-const userRouter = router({
+const contentRouter = router({
   list: publicProcedure.query(async () => {
-    const users = await prisma.content.findMany();
+    const contents = await prisma.content.findMany();
 
-    return users;
+    return contents;
   }),
+  detail: publicProcedure
+    .input(z.object({id: z.string()}))
+    .query(async ({input: {id}}) => {
+      const content = await prisma.content.findUnique({
+        where: {id},
+        include: {mwohajiHashTagedInstagramPosts: true},
+      });
+
+      return content;
+    }),
 });
 
 export const appRouter = router({
-  hello: helloRouter,
-  user: userRouter,
+  content: contentRouter,
 });
 
 export type AppRouter = typeof appRouter;

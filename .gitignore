@@ -66,3 +66,4 @@ local.properties
 
 # Env
 **/.env
+server/src/test.ts
