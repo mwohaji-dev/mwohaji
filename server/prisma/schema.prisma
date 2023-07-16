@@ -20,7 +20,7 @@ model Content {
   tMapLink                       String
   googleMapLink                  String
   mwohajiHashTagedInstagramPosts MwohajiHashTagedInstagramPost[]
-  meta                           Json
+  meta                           Json?
 }
 
 model MwohajiHashTagedInstagramPost {
