@@ -19,6 +19,7 @@ model Content {
   kakaoMapLink                   String
   tMapLink                       String
   googleMapLink                  String
+  catchTableLink                 String?
   mwohajiHashTagedInstagramPosts MwohajiHashTagedInstagramPost[]
   meta                           Json?
 }

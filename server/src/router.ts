@@ -15,7 +15,7 @@ const helloRouter = router({
 
 const userRouter = router({
   list: publicProcedure.query(async () => {
-    const users = await prisma.user.findMany();
+    const users = await prisma.content.findMany();
 
     return users;
   }),
