@@ -7,18 +7,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Content {
+  id                             String                          @id @default(cuid())
+  name                           String
+  hashTag                        String
+  type                           ContentType
+  longitude                      Float // 경도
+  latitude                       Float // 위도
+  recommandHashTags              Json // String[]
+  naverMapLink                   String
+  kakaoMapLink                   String
+  tMapLink                       String
+  googleMapLink                  String
+  mwohajiHashTagedInstagramPosts MwohajiHashTagedInstagramPost[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model MwohajiHashTagedInstagramPost {
+  id           String  @id @default(cuid())
+  thumbnailUrl String
+  iosLink      String
+  aosLink      String
+  meta         Json
+  content      Content @relation(fields: [contentId], references: [id])
+
+  contentId String
+}
+
+enum ContentType {
+  realtimeHotPlace
+  waitingRestaurant
 }
