@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import {Marker} from 'react-native-maps';
 import {Content} from '../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,11 +8,13 @@ import {contentInfo} from '../constants/content';
 interface ContentMarkerProps {
   content: Content;
   highlight: boolean;
+  onPress: () => void;
 }
 
 export default function ContentMarker({
   content: {latitude, longitude, id, type},
   highlight,
+  onPress,
 }: ContentMarkerProps) {
   const {markerIcon, markerStyle} = useMemo(() => contentInfo[type], [type]);
   const extraStyle = useMemo(
@@ -26,9 +28,9 @@ export default function ContentMarker({
 
   return (
     <Marker key={id} coordinate={{latitude, longitude}}>
-      <View style={[styles.marker, extraStyle]}>
+      <Pressable onPress={onPress} style={[styles.marker, extraStyle]}>
         <Icon size={size} color="#fff" name={markerIcon} />
-      </View>
+      </Pressable>
     </Marker>
   );
 }

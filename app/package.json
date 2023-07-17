@@ -45,6 +45,7 @@
     "react-native": "0.72.3",
     "react-native-bootsplash": "^4.7.5",
     "react-native-code-push": "^8.0.2",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.12.0",
     "react-native-linear-gradient": "^2.7.3",
     "react-native-maps": "^1.7.1",
@@ -75,5 +76,8 @@
     "react-native-version": "^4.0.0",
     "react-test-renderer": "18.2.0",
     "typescript": "4.8.4"
-  }
+  },
+  "reactNativePermissionsIOS": [
+    "LocationWhenInUse"
+  ]
 }
