@@ -7,8 +7,9 @@ import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 import {trpc, trpcClient} from './src/configs/trpc';
 import queryClient from './src/configs/reactQuery';
 import Home from './src/pages/Home';
-import BorderShadowLayout from './src/Components/BorderShadowLayout';
+import BorderShadowLayout from './src/components/BorderShadowLayout';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {LocationProvider} from './src/contexts/location';
 
 function RNApp(): JSX.Element {
   useEffect(() => {
@@ -16,15 +17,17 @@ function RNApp(): JSX.Element {
   }, []);
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <BorderShadowLayout>
-            <Home />
-          </BorderShadowLayout>
-        </SafeAreaProvider>
-      </QueryClientProvider>
-    </trpc.Provider>
+    <LocationProvider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <BorderShadowLayout>
+              <Home />
+            </BorderShadowLayout>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </trpc.Provider>
+    </LocationProvider>
   );
 }
 

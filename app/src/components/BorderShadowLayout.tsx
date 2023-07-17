@@ -13,7 +13,6 @@ export default function BorderShadowLayout({children}: PropsWithChildren) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
   },
   shadow: {
     pointerEvents: 'none',

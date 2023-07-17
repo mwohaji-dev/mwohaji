@@ -2,9 +2,9 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import MapView from 'react-native-maps';
 import {trpc} from '../configs/trpc';
-import ContentMarker from '../Components/ContentMarker';
+import ContentMarker from '../components/ContentMarker';
 import {contentTypes} from '../constants/content';
-import ContentTypeTag from '../Components/ContentTypeTag';
+import ContentTypeTag from '../components/ContentTypeTag';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function Home(): JSX.Element {
@@ -15,14 +15,22 @@ export default function Home(): JSX.Element {
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        mapType="terrain"
-        region={{
-          latitude: 37.5011772,
-          longitude: 127.025626,
+        mapType="terrain" // 구글 맵에서 필요없는 정보 제거
+        showsBuildings={false} // 22
+        showsPointsOfInterest={false} // IOS 맵에서 필요 없는 정보 제거
+        showsUserLocation
+        showsMyLocationButton={false}
+        showsCompass={false}
+        showsIndoors={false}
+        showsScale={false}
+        focusable={false}
+        rotateEnabled={false}
+        initialRegion={{
+          latitude: 37.5,
+          longitude: 127,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
-        }}
-        showsPointsOfInterest={false}>
+        }}>
         {data?.map(content => (
           <ContentMarker key={content.id} content={content} highlight={false} />
         ))}
