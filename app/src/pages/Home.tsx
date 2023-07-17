@@ -1,6 +1,6 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Region} from 'react-native-maps';
 import {Content, trpc} from '../configs/trpc';
 import ContentMarker from '../components/ContentMarker';
 import {contentTypes} from '../constants/content';
@@ -10,10 +10,32 @@ import {useLocation} from '../contexts/location';
 
 export default function Home(): JSX.Element {
   const mapRef = useRef<MapView>(null);
-  const {initLatitude, initLongitude} = useLocation();
+  const {defaultLatitude, defaultLongitude, initLatitude, initLongitude} =
+    useLocation();
   const {top} = useSafeAreaInsets();
   const {data} = trpc.content.list.useQuery();
   const [focusedContentId, setFocusedContentId] = useState<null | string>(null);
+  const [region, setRegion] = useState<Region>({
+    latitude: defaultLatitude,
+    longitude: defaultLongitude,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+
+  useEffect(() => {
+    // 권한을 받고 initCoords를 받으면 적용 시켜줌
+    if (initLatitude && initLongitude) {
+      mapRef.current?.animateToRegion(
+        {
+          ...region,
+          latitude: initLatitude,
+          longitude: initLongitude,
+        },
+        0,
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initLatitude, initLongitude]);
 
   // 클릭한 마커를 포커스함
   const onMarkerPress = useCallback(
@@ -22,16 +44,16 @@ export default function Home(): JSX.Element {
         setFocusedContentId(id);
         mapRef.current?.animateToRegion(
           {
+            // 최소 delta 는 지정해주자
+            ...region,
             // TODO 계산
             latitude: latitude - 0.0005,
             longitude,
-            latitudeDelta: 0.002,
-            longitudeDelta: 0.002,
           },
           250,
         );
       },
-    [],
+    [region],
   );
   // 조금이라도 맵이 움직이면 포커스 해제
   const onPanDrag = useCallback(() => setFocusedContentId(null), []);
@@ -51,12 +73,8 @@ export default function Home(): JSX.Element {
         showsScale={false}
         focusable={false}
         rotateEnabled={false}
-        region={{
-          latitude: initLatitude,
-          longitude: initLongitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
+        initialRegion={region}
+        onRegionChange={setRegion}
         onPanDrag={onPanDrag}>
         {data?.map(content => (
           <ContentMarker

@@ -1,9 +1,15 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Pressable, StyleSheet} from 'react-native';
 import {Marker} from 'react-native-maps';
 import {Content} from '../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {contentInfo} from '../constants/content';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 
 interface ContentMarkerProps {
   content: Content;
@@ -16,20 +22,24 @@ export default function ContentMarker({
   highlight,
   onPress,
 }: ContentMarkerProps) {
+  const scale = useSharedValue(1);
+
+  useEffect(() => {
+    scale.value = withSpring(highlight ? 1.5 : 1);
+  }, [scale, highlight]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{scale: scale.value}],
+  }));
+
   const {markerIcon, markerStyle} = useMemo(() => contentInfo[type], [type]);
-  const extraStyle = useMemo(
-    () => ({
-      ...(highlight ? styles.markerHighlight : {}),
-      ...markerStyle,
-    }),
-    [markerStyle, highlight],
-  );
-  const size = useMemo(() => (highlight ? 32 : 24), [highlight]);
 
   return (
     <Marker key={id} coordinate={{latitude, longitude}}>
-      <Pressable onPress={onPress} style={[styles.marker, extraStyle]}>
-        <Icon size={size} color="#fff" name={markerIcon} />
+      <Pressable onPress={onPress}>
+        <Animated.View style={[styles.marker, markerStyle, animatedStyle]}>
+          <Icon size={24} color="#fff" name={markerIcon} />
+        </Animated.View>
       </Pressable>
     </Marker>
   );
@@ -42,10 +52,5 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  markerHighlight: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
   },
 });

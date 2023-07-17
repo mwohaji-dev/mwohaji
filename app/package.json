@@ -7,7 +7,6 @@
     "yarn": ">=1.22"
   },
   "scripts": {
-    "postinstall": "react-native setup-ios-permissions && pod-install",
     "start": "react-native start",
     "ios": "react-native run-ios",
     "ios:device": "react-native run-ios --device \"Namgunghyun13mini\"",

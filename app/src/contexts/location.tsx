@@ -4,22 +4,22 @@ import {PropsWithChildren, createContext, useState} from 'react';
 import {Platform} from 'react-native';
 import {PERMISSIONS, request, PermissionStatus} from 'react-native-permissions';
 
-const defulatLatitude = 37.5;
-const defulatLongitude = 127;
+const defaultLatitude = 37.5;
+const defaultLongitude = 127;
 const permission =
   Platform.OS === 'ios'
     ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
     : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
 
 interface LocationContext {
-  initLatitude: number;
-  initLongitude: number;
+  initLatitude?: number;
+  initLongitude?: number;
   permissionStatus?: PermissionStatus;
 }
 
 const locationContext = createContext<LocationContext>({
-  initLatitude: defulatLatitude,
-  initLongitude: defulatLongitude,
+  initLatitude: defaultLatitude,
+  initLongitude: defaultLongitude,
 });
 
 export function useLocation() {
@@ -27,6 +27,8 @@ export function useLocation() {
     useContext(locationContext);
 
   return {
+    defaultLatitude,
+    defaultLongitude,
     initLatitude,
     initLongitude,
     permissionStatus,
@@ -34,8 +36,8 @@ export function useLocation() {
 }
 
 export function LocationProvider({children}: PropsWithChildren) {
-  const [initLatitude, setInitLatitude] = useState(defulatLatitude);
-  const [initLongitude, setInitLongitude] = useState(defulatLongitude);
+  const [initLatitude, setInitLatitude] = useState<number>();
+  const [initLongitude, setInitLongitude] = useState<number>();
   const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>();
 
   const requestPermission = useCallback(async () => {
