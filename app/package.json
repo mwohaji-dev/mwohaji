@@ -31,7 +31,8 @@
     "test": "jest",
     "lint": "eslint . --fix",
     "lint:ci": "eslint . --max-warnings=0",
-    "splash": "yarn react-native generate-bootsplash assets/icon.png"
+    "splash": "yarn react-native generate-bootsplash assets/icon.png",
+    "localip": "ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"
   },
   "dependencies": {
     "@react-native-firebase/analytics": "^18.2.0",
@@ -45,6 +46,7 @@
     "react-native": "0.72.3",
     "react-native-bootsplash": "^4.7.5",
     "react-native-code-push": "^8.0.2",
+    "react-native-device-info": "^10.8.0",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.12.0",
     "react-native-linear-gradient": "^2.7.3",

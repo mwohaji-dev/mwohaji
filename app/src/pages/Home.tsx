@@ -63,7 +63,7 @@ export default function Home(): JSX.Element {
       <MapView
         ref={mapRef}
         style={styles.map}
-        mapType="terrain" // 구글 맵에서 필요없는 정보 제거
+        mapType="standard" // 구글 맵에서 필요없는 정보 제거
         showsBuildings={false} // 22
         showsPointsOfInterest={false} // IOS 맵에서 필요 없는 정보 제거
         showsUserLocation
