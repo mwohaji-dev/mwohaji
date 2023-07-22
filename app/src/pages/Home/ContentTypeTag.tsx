@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ContentType} from '../configs/trpc';
+import {ContentType} from '../../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {contentInfo} from '../constants/content';
-import Text from '../elements/Text';
+import {contentInfo} from '../../constants/content';
+import Text from '../../elements/Text';
 
 interface ContentTypeTagProps {
   contentType: ContentType;

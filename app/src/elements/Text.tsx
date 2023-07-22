@@ -7,6 +7,7 @@ export default function Text(props: TextProps): JSX.Element {
 
 const styles = StyleSheet.create({
   font: {
+    color: '#000',
     fontFamily: 'SpoqaHanSansNeo',
   },
 });

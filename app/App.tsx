@@ -21,13 +21,13 @@ function App(): JSX.Element {
     <LocationProvider>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          <BottomSheetModalProvider>
-            <SafeAreaProvider>
-              <BorderShadowLayout>
+          <SafeAreaProvider>
+            <BorderShadowLayout>
+              <BottomSheetModalProvider>
                 <Home />
-              </BorderShadowLayout>
-            </SafeAreaProvider>
-          </BottomSheetModalProvider>
+              </BottomSheetModalProvider>
+            </BorderShadowLayout>
+          </SafeAreaProvider>
         </QueryClientProvider>
       </trpc.Provider>
     </LocationProvider>

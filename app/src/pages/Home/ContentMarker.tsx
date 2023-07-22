@@ -1,9 +1,9 @@
 import React, {useEffect, useMemo} from 'react';
 import {StyleSheet} from 'react-native';
 import {Marker} from 'react-native-maps';
-import {Content} from '../configs/trpc';
+import {Content} from '../../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {contentInfo} from '../constants/content';
+import {contentInfo} from '../../constants/content';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,

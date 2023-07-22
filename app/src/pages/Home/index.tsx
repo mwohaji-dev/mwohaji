@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import MapView, {Region} from 'react-native-maps';
-import {Content, trpc} from '../configs/trpc';
-import ContentMarker from '../components/ContentMarker';
-import {contentTypes} from '../constants/content';
-import ContentTypeTag from '../components/ContentTypeTag';
+import {Content, trpc} from '../../configs/trpc';
+import ContentMarker from './ContentMarker';
+import {contentTypes} from '../../constants/content';
+import ContentTypeTag from './ContentTypeTag';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useLocation} from '../contexts/location';
+import {useLocation} from '../../contexts/location';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import Text from '../elements/Text';
+import HomeBottomSheet from './BottomSheet';
 
 export default function Home(): JSX.Element {
   const mapRef = useRef<MapView>(null);
@@ -26,12 +26,6 @@ export default function Home(): JSX.Element {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
-
-  const snapPoints = useMemo(
-    // 디자인상 계산된 값
-    () => [168 + Dimensions.get('window').width / 3, '100%'],
-    [],
-  );
 
   useEffect(() => {
     // 최초 1회 권한을 받고 initCoords를 받으면 적용 시켜줌
@@ -53,13 +47,12 @@ export default function Home(): JSX.Element {
     ({id, latitude, longitude}: Content) =>
       () => {
         setFocusedContentId(id);
-        bottomSheetRef.current?.present();
+        bottomSheetRef.current?.present({id});
         mapRef.current?.animateToRegion(
           {
             // 최소 delta 는 지정해주자
             ...region,
-            // TODO 계산
-            latitude: latitude - 0.0005,
+            latitude,
             longitude,
           },
           250,
@@ -109,13 +102,7 @@ export default function Home(): JSX.Element {
           <ContentTypeTag key={contentType} contentType={contentType} />
         ))}
       </ScrollView>
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        onDismiss={onDissmiss}
-        enablePanDownToClose>
-        <Text>Hello</Text>
-      </BottomSheetModal>
+      <HomeBottomSheet ref={bottomSheetRef} onDismiss={onDissmiss} />
     </View>
   );
 }
