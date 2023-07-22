@@ -12,6 +12,8 @@ import Text from '../../elements/Text';
 import {trpc} from '../../configs/trpc';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type BottomSheetProps = Pick<BottomSheetModalProps, 'onDismiss'>;
 interface PresentData {
@@ -76,6 +78,17 @@ function Content({data: {id}}: {data: PresentData}) {
           </TouchableOpacity>
         ))}
       </View>
+      <LinearGradient
+        colors={['#DB855E', '#FA5F5D', '#ED6069', '#D06087', '#874A7A']}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+        style={styles.instaHeader}>
+        <Icon name="instagram" size={16} color="#fff" />
+        <Text style={styles.instaHeaderText}>
+          <Text style={styles.bold}>#파이브가이즈 #뭐하지앱</Text> 태그시
+          연동됩니다 🤗
+        </Text>
+      </LinearGradient>
     </View>
   );
 }
@@ -150,6 +163,21 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 16,
     overflow: 'hidden',
+  },
+  instaHeader: {
+    flexDirection: 'row',
+    height: 48,
+    width: '100%',
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    gap: 8,
+  },
+  instaHeaderText: {
+    lineHeight: 16,
+    color: '#fff',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });
 
