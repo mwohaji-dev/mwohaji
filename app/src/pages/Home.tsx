@@ -72,6 +72,7 @@ export default function Home(): JSX.Element {
     setFocusedContentId(null);
     bottomSheetRef.current?.dismiss();
   }, []);
+  const onDissmiss = useCallback(() => setFocusedContentId(null), []);
 
   return (
     <View style={styles.container}>
@@ -111,6 +112,7 @@ export default function Home(): JSX.Element {
       <BottomSheetModal
         ref={bottomSheetRef}
         snapPoints={snapPoints}
+        onDismiss={onDissmiss}
         enablePanDownToClose>
         <Text>Hello</Text>
       </BottomSheetModal>

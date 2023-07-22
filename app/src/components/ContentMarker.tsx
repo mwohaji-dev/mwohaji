@@ -7,7 +7,7 @@ import {contentInfo} from '../constants/content';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 
 const AnimatedMarker = Animated.createAnimatedComponent(Marker);
@@ -26,7 +26,7 @@ export default function ContentMarker({
   const scale = useSharedValue(1);
 
   useEffect(() => {
-    scale.value = withSpring(highlight ? 1.5 : 1);
+    scale.value = withTiming(highlight ? 1.5 : 1);
   }, [scale, highlight]);
 
   const animatedStyle = useAnimatedStyle(() => ({
