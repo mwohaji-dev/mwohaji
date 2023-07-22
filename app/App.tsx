@@ -10,8 +10,9 @@ import Home from './src/pages/Home';
 import BorderShadowLayout from './src/components/BorderShadowLayout';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {LocationProvider} from './src/contexts/location';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
-function RNApp(): JSX.Element {
+function App(): JSX.Element {
   useEffect(() => {
     RNBootSplash.hide({fade: true});
   }, []);
@@ -20,18 +21,20 @@ function RNApp(): JSX.Element {
     <LocationProvider>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
-            <BorderShadowLayout>
-              <Home />
-            </BorderShadowLayout>
-          </SafeAreaProvider>
+          <BottomSheetModalProvider>
+            <SafeAreaProvider>
+              <BorderShadowLayout>
+                <Home />
+              </BorderShadowLayout>
+            </SafeAreaProvider>
+          </BottomSheetModalProvider>
         </QueryClientProvider>
       </trpc.Provider>
     </LocationProvider>
   );
 }
 
-const App = gestureHandlerRootHOC(RNApp);
+const RNApp = gestureHandlerRootHOC(App);
 export default __DEV__
-  ? App
-  : codePush({checkFrequency: codePush.CheckFrequency.ON_APP_RESUME})(App);
+  ? RNApp
+  : codePush({checkFrequency: codePush.CheckFrequency.ON_APP_RESUME})(RNApp);
