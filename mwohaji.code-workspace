@@ -8,6 +8,6 @@
     }
   ],
   "settings": {
-    "jest.disabledWorkspaceFolders": ["server"]
+    "jest.disabledWorkspaceFolders": ["server", "app"]
   }
 }
