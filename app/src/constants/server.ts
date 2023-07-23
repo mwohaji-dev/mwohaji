@@ -8,7 +8,7 @@ const IP_ADDRESS = '172.20.10.3';
 
 export const SERVER_BASE_URL = (() => {
   if (!__DEV__ || PROD_TEST_MODE) {
-    return 'TODO';
+    return 'https://server-na5txsvfxq-du.a.run.app';
   }
   if (!deviceInfoModule.isEmulatorSync()) {
     return `http://${IP_ADDRESS}:4000`;
