@@ -29,8 +29,8 @@ interface PresentData {
 function Content({data: {id}}: {data: PresentData}) {
   const {data} = trpc.content.detail.useQuery({id});
 
-  const thirdPartyApps = useMemo(
-    () => [
+  const thirdPartyApps = useMemo(() => {
+    const apps = [
       {
         link: data?.naverMapLink,
         source: require('../../../assets/third-party-apps/naver-map.png'),
@@ -51,9 +51,17 @@ function Content({data: {id}}: {data: PresentData}) {
         link: data?.appleMapLink,
         source: require('../../../assets/third-party-apps/apple-map.png'),
       },
-    ],
-    [data],
-  );
+    ];
+
+    if (data?.catchTableLink) {
+      apps.push({
+        link: data?.catchTableLink,
+        source: require('../../../assets/third-party-apps/catch-table.png'),
+      });
+    }
+
+    return apps;
+  }, [data]);
   const instagramItems = useMemo(
     () => _.chunk(data?.mwohajiHashTagedInstagramPosts ?? [], 3),
     [data?.mwohajiHashTagedInstagramPosts],
