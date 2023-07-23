@@ -39,20 +39,13 @@ function Content({data: {id}}: {data: PresentData}) {
         link: data?.kakaoMapLink,
         source: require('../../../assets/third-party-apps/kakao-map.png'),
       },
-      {
-        link: data?.tMapLink,
-        source: require('../../../assets/third-party-apps/t-map.png'),
-      },
-      {
-        link: data?.googleMapLink,
-        source: require('../../../assets/third-party-apps/google-map.png'),
-      },
-      {
+    ];
+    if (Platform.OS === 'ios') {
+      apps.push({
         link: data?.appleMapLink,
         source: require('../../../assets/third-party-apps/apple-map.png'),
-      },
-    ];
-
+      });
+    }
     if (data?.catchTableLink) {
       apps.push({
         link: data?.catchTableLink,
