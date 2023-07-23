@@ -1,9 +1,15 @@
-import {BottomSheetModal, BottomSheetModalProps} from '@gorhom/bottom-sheet';
+import {
+  BottomSheetFlatList,
+  BottomSheetModal,
+  BottomSheetModalProps,
+} from '@gorhom/bottom-sheet';
+import _ from 'lodash';
 import React, {forwardRef, useMemo} from 'react';
 import {
   Dimensions,
   Image,
   Linking,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -48,47 +54,78 @@ function Content({data: {id}}: {data: PresentData}) {
     ],
     [data],
   );
+  const instagramItems = useMemo(
+    () => _.chunk(data?.mwohajiHashTagedInstagramPosts ?? [], 3),
+    [data?.mwohajiHashTagedInstagramPosts],
+  );
 
   return (
-    <View>
-      <Text style={styles.title}>{data?.name}</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.hashTagScrollView}>
-        <View style={styles.recommandHashTagBox}>
-          <Text style={styles.recommandHashTag}>추천 해시태그 👍</Text>
-        </View>
-        <Text style={[styles.hashTag, styles.hashTagHighlight]}>
-          #{data?.hashTag}
-        </Text>
-        <Text style={[styles.hashTag, styles.hashTagHighlight]}>#뭐하지앱</Text>
-        {(data?.recommandHashTags as string[])?.map(tag => (
-          <Text key={tag} style={styles.hashTag}>
-            #{tag}
+    <View style={styles.contentContainer}>
+      <View>
+        <Text style={styles.title}>{data?.name}</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.hashTagScrollView}>
+          <View style={styles.recommandHashTagBox}>
+            <Text style={styles.recommandHashTag}>추천 해시태그 👍</Text>
+          </View>
+          <Text style={[styles.hashTag, styles.hashTagHighlight]}>
+            #{data?.hashTag}
           </Text>
-        ))}
-      </ScrollView>
-      <View style={styles.thirdPartyAppContainer}>
-        {thirdPartyApps.map(({link, source}) => (
-          <TouchableOpacity
-            key={link}
-            onPress={() => Linking.openURL(link ?? '')}>
-            <Image style={styles.thirdPartyApp} source={source} />
-          </TouchableOpacity>
-        ))}
+          <Text style={[styles.hashTag, styles.hashTagHighlight]}>
+            #뭐하지앱
+          </Text>
+          {(data?.recommandHashTags as string[])?.map(tag => (
+            <Text key={tag} style={styles.hashTag}>
+              #{tag}
+            </Text>
+          ))}
+        </ScrollView>
+        <View style={styles.thirdPartyAppContainer}>
+          {thirdPartyApps.map(({link, source}) => (
+            <TouchableOpacity
+              key={link}
+              onPress={() => Linking.openURL(link ?? '')}>
+              <Image style={styles.thirdPartyApp} source={source} />
+            </TouchableOpacity>
+          ))}
+        </View>
+        <LinearGradient
+          colors={['#DB855E', '#FA5F5D', '#ED6069', '#D06087', '#874A7A']}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 1}}
+          style={styles.instaHeader}>
+          <Icon name="instagram" size={16} color="#fff" />
+          <Text style={styles.instaHeaderText}>
+            <Text style={styles.bold}>#파이브가이즈 #뭐하지앱</Text> 태그시
+            연동됩니다 🤗
+          </Text>
+        </LinearGradient>
       </View>
-      <LinearGradient
-        colors={['#DB855E', '#FA5F5D', '#ED6069', '#D06087', '#874A7A']}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}
-        style={styles.instaHeader}>
-        <Icon name="instagram" size={16} color="#fff" />
-        <Text style={styles.instaHeaderText}>
-          <Text style={styles.bold}>#파이브가이즈 #뭐하지앱</Text> 태그시
-          연동됩니다 🤗
-        </Text>
-      </LinearGradient>
+      <BottomSheetFlatList
+        showsVerticalScrollIndicator={false}
+        data={instagramItems}
+        keyExtractor={item => item[0].id}
+        renderItem={({item: items}) => (
+          <View style={styles.InstaRow}>
+            {items.map(item => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() =>
+                  Linking.openURL(
+                    Platform.OS === 'ios' ? item.iosLink : item.aosLink,
+                  )
+                }>
+                <Image
+                  style={styles.instaItem}
+                  source={{uri: item.thumbnailUrl}}
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      />
     </View>
   );
 }
@@ -125,6 +162,9 @@ const styles = StyleSheet.create({
   backgroundStyle: {
     borderRadius: 0,
   },
+  contentContainer: {
+    flex: 1,
+  },
   title: {
     fontWeight: 'bold',
     lineHeight: 24,
@@ -132,6 +172,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     fontSize: 16,
     marginBottom: 4,
+    color: '#000',
   },
   hashTagScrollView: {
     paddingHorizontal: 16,
@@ -146,9 +187,11 @@ const styles = StyleSheet.create({
   recommandHashTag: {
     lineHeight: 24,
     fontSize: 12,
+    color: '#000',
   },
   hashTag: {
     lineHeight: 24,
+    color: '#000',
   },
   hashTagHighlight: {
     fontWeight: 'bold',
@@ -178,6 +221,13 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: 'bold',
+  },
+  InstaRow: {
+    flexDirection: 'row',
+  },
+  instaItem: {
+    width: Dimensions.get('window').width / 3,
+    height: Dimensions.get('window').width / 3,
   },
 });
 
