@@ -17,8 +17,6 @@ model Content {
   recommandHashTags              Json // String[]
   naverMapLink                   String
   kakaoMapLink                   String
-  tMapLink                       String
-  googleMapLink                  String
   appleMapLink                   String
   catchTableLink                 String?
   mwohajiHashTagedInstagramPosts MwohajiHashTagedInstagramPost[]
