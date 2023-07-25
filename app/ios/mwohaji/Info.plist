@@ -55,6 +55,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>위치 정보를 수집하여 지도에 파란색 현재 위치 마커를 표시합니다. 이 데이터는 외부에 전송 되지 않습니다.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>위치 정보를 수집하여 지도에 파란색 현재 위치 마커를 표시합니다. 이 데이터는 외부에 전송 되지 않습니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
