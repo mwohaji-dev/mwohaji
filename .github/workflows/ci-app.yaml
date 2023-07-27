@@ -23,7 +23,7 @@ jobs:
       #  TRPC를 쓰다보니 서버쪽 디펜던시가 필요함
       - name: Install server dependeinces
         run: |
-          cd sever
+          cd server
           yarn install --immutable
           cd .. 
         
