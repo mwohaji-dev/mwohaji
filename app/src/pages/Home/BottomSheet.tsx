@@ -1,9 +1,4 @@
-import {
-  BottomSheetFlatList,
-  BottomSheetModal,
-  BottomSheetModalProps,
-} from '@gorhom/bottom-sheet';
-import _ from 'lodash';
+import {BottomSheetModal, BottomSheetModalProps} from '@gorhom/bottom-sheet';
 import React, {forwardRef, useMemo} from 'react';
 import {
   Dimensions,
@@ -15,74 +10,54 @@ import {
   View,
 } from 'react-native';
 import Text from '../../elements/Text';
-import {trpc} from '../../configs/trpc';
-import {ScrollView} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useContents} from '../../contexts/contents';
+import {Content as ContentType} from '../../constants/content';
 
 type BottomSheetProps = Pick<BottomSheetModalProps, 'onDismiss'>;
 interface PresentData {
-  id: string;
+  name: string;
 }
 
-function Content({data: {id}}: {data: PresentData}) {
-  const {data} = trpc.content.detail.useQuery({id});
+function Content({data: presentData}: {data: PresentData}) {
+  const {allContents} = useContents();
+  const {name, naverMapId, kakaoMapId, appleMapId, catchTableLink} =
+    allContents.find(c => c.name === presentData.name) as ContentType;
 
   const thirdPartyApps = useMemo(() => {
-    const apps = [
-      {
-        link: data?.naverMapLink,
-        source: require('../../../assets/third-party-apps/naver-map.png'),
-      },
-      {
-        link: data?.kakaoMapLink,
-        source: require('../../../assets/third-party-apps/kakao-map.png'),
-      },
-    ];
-    if (Platform.OS === 'ios') {
+    const apps = [];
+    if (naverMapId) {
       apps.push({
-        link: data?.appleMapLink,
+        link: `nmap://place?id=${naverMapId}`,
+        source: require('../../../assets/third-party-apps/naver-map.png'),
+      });
+    }
+    if (kakaoMapId) {
+      apps.push({
+        link: `kakaomap://place?id=${naverMapId}`,
+        source: require('../../../assets/third-party-apps/kakao-map.png'),
+      });
+    }
+    if (appleMapId && Platform.OS === 'ios') {
+      apps.push({
+        link: `maps://?auid=${naverMapId}`,
         source: require('../../../assets/third-party-apps/apple-map.png'),
       });
     }
-    if (data?.catchTableLink) {
+    if (catchTableLink) {
       apps.push({
-        link: data?.catchTableLink,
+        link: catchTableLink,
         source: require('../../../assets/third-party-apps/catch-table.png'),
       });
     }
-
     return apps;
-  }, [data]);
-  const instagramItems = useMemo(
-    () => _.chunk(data?.mwohajiHashTagedInstagramPosts ?? [], 3),
-    [data?.mwohajiHashTagedInstagramPosts],
-  );
+  }, [appleMapId, catchTableLink, kakaoMapId, naverMapId]);
 
   return (
     <View style={styles.contentContainer}>
       <View>
-        <Text style={styles.title}>{data?.name}</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.hashTagScrollView}>
-          <View style={styles.recommandHashTagBox}>
-            <Text style={styles.recommandHashTag}>추천 해시태그 👍</Text>
-          </View>
-          <Text style={[styles.hashTag, styles.hashTagHighlight]}>
-            #{data?.hashTag}
-          </Text>
-          <Text style={[styles.hashTag, styles.hashTagHighlight]}>
-            #뭐하지앱
-          </Text>
-          {(data?.recommandHashTags as string[])?.map(tag => (
-            <Text key={tag} style={styles.hashTag}>
-              #{tag}
-            </Text>
-          ))}
-        </ScrollView>
+        <Text style={styles.title}>{name}</Text>
         <View style={styles.thirdPartyAppContainer}>
           {thirdPartyApps.map(({link, source}) => (
             <TouchableOpacity
@@ -92,41 +67,7 @@ function Content({data: {id}}: {data: PresentData}) {
             </TouchableOpacity>
           ))}
         </View>
-        <LinearGradient
-          colors={['#DB855E', '#FA5F5D', '#ED6069', '#D06087', '#874A7A']}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 1}}
-          style={styles.instaHeader}>
-          <Icon name="instagram" size={16} color="#fff" />
-          <Text style={styles.instaHeaderText}>
-            <Text style={styles.bold}>#파이브가이즈 #뭐하지앱</Text> 태그시
-            연동됩니다 🤗
-          </Text>
-        </LinearGradient>
       </View>
-      <BottomSheetFlatList
-        showsVerticalScrollIndicator={false}
-        data={instagramItems}
-        keyExtractor={item => item[0].id}
-        renderItem={({item: items}) => (
-          <View style={styles.InstaRow}>
-            {items.map(item => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() =>
-                  Linking.openURL(
-                    Platform.OS === 'ios' ? item.iosLink : item.aosLink,
-                  )
-                }>
-                <Image
-                  style={styles.instaItem}
-                  source={{uri: item.thumbnailUrl}}
-                />
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-      />
     </View>
   );
 }

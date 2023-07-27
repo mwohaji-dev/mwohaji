@@ -29,8 +29,9 @@
     "codepush:ios": "appcenter codepush release-react -a mwohaji/mwohaji-ios -d Staging --plist-file ios/mwohaji/Info.plist",
     "test:coverage": "yarn test -- --coverage --watchAll=false",
     "test": "jest",
-    "lint": "eslint . --fix",
-    "lint:ci": "eslint . --max-warnings=0",
+    "typecheck": "tsc",
+    "lint": "eslint . --fix && yarn typecheck",
+    "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
     "splash": "yarn react-native generate-bootsplash assets/icon.png",
     "localip": "ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"
   },

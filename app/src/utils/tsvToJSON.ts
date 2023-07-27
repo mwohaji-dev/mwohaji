@@ -10,5 +10,5 @@ export default function tsvToJSON(csv: string) {
       .map((cell, index) => [columns[index], cell])
       .fromPairs()
       .value(),
-  );
+  ) as any; // TODO
 }

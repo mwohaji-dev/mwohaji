@@ -13,11 +13,16 @@ import {LocationProvider} from './src/contexts/location';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {useMMKVNumber} from 'react-native-mmkv';
 import InAppReview from 'react-native-in-app-review';
+import {ContentsProvider} from './src/contexts/contents';
 
 function App(): JSX.Element {
   const [loadCount = 1, setLoadCount] = useMMKVNumber('load');
 
   const requestInAppRating = useCallback(async () => {
+    if (__DEV__) {
+      // DEV 환경에서는 무시
+      return;
+    }
     // 매 10회 로딩마다 별점 요청
     setLoadCount(loadCount + 1);
     if (loadCount % 10 === 0) {
@@ -35,13 +40,15 @@ function App(): JSX.Element {
     <LocationProvider>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
-            <BorderShadowLayout>
-              <BottomSheetModalProvider>
-                <Home />
-              </BottomSheetModalProvider>
-            </BorderShadowLayout>
-          </SafeAreaProvider>
+          <ContentsProvider>
+            <SafeAreaProvider>
+              <BorderShadowLayout>
+                <BottomSheetModalProvider>
+                  <Home />
+                </BottomSheetModalProvider>
+              </BorderShadowLayout>
+            </SafeAreaProvider>
+          </ContentsProvider>
         </QueryClientProvider>
       </trpc.Provider>
     </LocationProvider>

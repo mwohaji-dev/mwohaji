@@ -10,13 +10,13 @@ interface ContentTypeTagProps {
 }
 
 export default function ContentTypeTag({contentType}: ContentTypeTagProps) {
-  const {markerIcon, name, tagStyle} = useMemo(
+  const {markerIcon, name, colorLight} = useMemo(
     () => contentInfo[contentType],
     [contentType],
   );
 
   return (
-    <View style={[styles.container, tagStyle]}>
+    <View style={[styles.container, {backgroundColor: colorLight}]}>
       <Icon size={16} color="#fff" name={markerIcon} />
       <Text style={styles.name}>{name}</Text>
     </View>

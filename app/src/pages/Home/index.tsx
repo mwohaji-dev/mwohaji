@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import MapView, {Region} from 'react-native-maps';
-import {Content, trpc} from '../../configs/trpc';
 import ContentMarker from './ContentMarker';
-import {contentTypes} from '../../constants/content';
+import {ContentData, contentTypes} from '../../constants/content';
 import ContentTypeTag from './ContentTypeTag';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useLocation} from '../../contexts/location';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import HomeBottomSheet from './BottomSheet';
+import {useContents} from '../../contexts/contents';
 
 export default function Home(): JSX.Element {
   const mapRef = useRef<MapView>(null);
@@ -17,7 +17,6 @@ export default function Home(): JSX.Element {
   const {defaultLatitude, defaultLongitude, initLatitude, initLongitude} =
     useLocation();
   const {top} = useSafeAreaInsets();
-  const {data} = trpc.content.list.useQuery();
 
   const [focusedContentId, setFocusedContentId] = useState<null | string>(null);
   const [region, setRegion] = useState<Region>({
@@ -26,6 +25,8 @@ export default function Home(): JSX.Element {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+
+  const {allContents} = useContents();
 
   useEffect(() => {
     // 최초 1회 권한을 받고 initCoords를 받으면 적용 시켜줌
@@ -44,10 +45,10 @@ export default function Home(): JSX.Element {
 
   // 클릭한 마커를 포커스함
   const onMarkerPress = useCallback(
-    ({id, latitude, longitude}: Content) =>
+    ({name, latitude, longitude}: ContentData) =>
       () => {
-        setFocusedContentId(id);
-        bottomSheetRef.current?.present({id});
+        setFocusedContentId(name);
+        bottomSheetRef.current?.present({name});
         mapRef.current?.animateToRegion(
           {
             // 최소 delta 는 지정해주자
@@ -85,11 +86,11 @@ export default function Home(): JSX.Element {
         initialRegion={region}
         onRegionChange={setRegion}
         onPanDrag={onPanDrag}>
-        {data?.map(content => (
+        {allContents.map(content => (
           <ContentMarker
-            key={content.id}
+            key={content.name}
             content={content}
-            highlight={focusedContentId === content.id}
+            highlight={focusedContentId === content.name}
             onPress={onMarkerPress(content)}
           />
         ))}
