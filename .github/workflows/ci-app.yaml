@@ -13,9 +13,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -23,9 +20,17 @@ jobs:
           node-version: 18
           cache: yarn
           cache-dependency-path: app/yarn.lock
+      #  TRPC를 쓰다보니 서버쪽 디펜던시가 필요함
+      - name: Install server dependeinces
+        run: |
+          cd sever
+          yarn install --immutable
+          cd .. 
         
       - name: Install dependencies
-        run: yarn install --immutable
+        run: |
+          cd app
+          yarn install --immutable
         
       - name: Run lint
         run: yarn lint:ci
