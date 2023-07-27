@@ -60,13 +60,13 @@ function Content({data: presentData}: {data: PresentData}) {
     }
     if (kakaoMapId) {
       apps.push({
-        link: `kakaomap://place?id=${naverMapId}`,
+        link: `kakaomap://place?id=${kakaoMapId}`,
         source: require('../../../assets/third-party-apps/kakao-map.png'),
       });
     }
     if (appleMapId && Platform.OS === 'ios') {
       apps.push({
-        link: `maps://?auid=${naverMapId}`,
+        link: `maps://?auid=${appleMapId}`,
         source: require('../../../assets/third-party-apps/apple-map.png'),
       });
     }
