@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@jest/globals": "^29.6.2",
     "@react-native-firebase/analytics": "^18.2.0",
     "@react-native-firebase/app": "^18.2.0",
     "@react-native-masked-view/masked-view": "^0.2.9",
@@ -43,6 +44,7 @@
     "@trpc/client": "^10.34.0",
     "@trpc/react-query": "^10.34.0",
     "@trpc/server": "^10.34.0",
+    "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.72.3",
@@ -70,6 +72,7 @@
     "@react-native/gradle-plugin": "^0.72.11",
     "@react-native/metro-config": "^0.72.9",
     "@tsconfig/react-native": "^3.0.0",
+    "@types/jest": "^29.5.3",
     "@types/lodash": "^4.14.195",
     "@types/react": "^18.0.24",
     "@types/react-native-vector-icons": "^6.4.13",

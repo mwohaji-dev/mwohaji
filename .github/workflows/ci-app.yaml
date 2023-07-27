@@ -29,3 +29,6 @@ jobs:
         
       - name: Run lint
         run: yarn lint:ci
+
+      - name: Run test
+        run: yarn test
