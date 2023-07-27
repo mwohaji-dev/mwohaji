@@ -83,6 +83,7 @@ export default function Home(): JSX.Element {
         showsScale={false}
         focusable={false}
         rotateEnabled={false}
+        userInterfaceStyle="light"
         initialRegion={region}
         onRegionChange={setRegion}
         onPanDrag={onPanDrag}>
