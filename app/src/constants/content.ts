@@ -34,14 +34,14 @@ type ContentInfo = {
 export const contentInfo: ContentInfo = {
   realtimeHotPlace: {
     name: '실시간 핫플',
-    link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOaL3fx3cznQ0EacTllyVNBZXcJZzSxA5FuBa4SETHFTUU-i7qAWcuf0WRVlwJDKr4T_X3jGPbYW-C/pub?gid=0&single=true&output=tsv',
+    link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOaL3fx3cznQ0EacTllyVNBZXcJZzSxA5FuBa4SETHFTUU-i7qAWcuf0WRVlwJDKr4T_X3jGPbYW-C/pub?gid=0&single=true&output=csv',
     markerIcon: 'fire',
     color: '#FF1A1A',
     colorLight: 'rgba(255, 26, 26, 0.70)',
   },
   waitingRestaurant: {
     name: '웨이팅 맛집',
-    link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOaL3fx3cznQ0EacTllyVNBZXcJZzSxA5FuBa4SETHFTUU-i7qAWcuf0WRVlwJDKr4T_X3jGPbYW-C/pub?gid=2005121968&single=true&output=tsv',
+    link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOaL3fx3cznQ0EacTllyVNBZXcJZzSxA5FuBa4SETHFTUU-i7qAWcuf0WRVlwJDKr4T_X3jGPbYW-C/pub?gid=2005121968&single=true&output=csv',
     markerIcon: 'account-multiple-outline',
     color: '#4E55FF',
     colorLight: 'rgba(78, 85, 255, 0.70)',

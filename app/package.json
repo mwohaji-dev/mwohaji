@@ -46,6 +46,7 @@
     "@trpc/react-query": "^10.34.0",
     "@trpc/server": "^10.34.0",
     "axios": "^1.4.0",
+    "csvtojson": "^2.0.10",
     "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.72.3",

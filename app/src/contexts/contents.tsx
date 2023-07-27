@@ -3,7 +3,7 @@ import {PropsWithChildren, createContext} from 'react';
 import {Content, ContentData, contentInfo} from '../constants/content';
 import {useQuery} from '@tanstack/react-query';
 import axios from 'axios';
-import tsvToJSON from '../utils/tsvToJSON';
+import csv from 'csvtojson';
 
 interface ContentsContext {
   realtimeHotPlace?: ContentData[];
@@ -31,14 +31,16 @@ export function ContentsProvider({children}: PropsWithChildren) {
     queryKey: ['realtimeHotPlace'],
     queryFn: async () => {
       const {data} = await axios.get(contentInfo.realtimeHotPlace.link);
-      return tsvToJSON(data);
+      const json = await csv().fromString(data);
+      return json;
     },
   });
   const {data: waitingRestaurant} = useQuery<ContentData[]>({
     queryKey: ['waitingRestaurant'],
     queryFn: async () => {
       const {data} = await axios.get(contentInfo.waitingRestaurant.link);
-      return tsvToJSON(data);
+      const json = await csv().fromString(data);
+      return json;
     },
   });
 
