@@ -1,3 +1,2 @@
-import {AppRouter} from './trpc';
-
-export default AppRouter;
+export type {AppRouter} from './trpc';
+export * from '@prisma/client';
