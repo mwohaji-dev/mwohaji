@@ -12,7 +12,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 # 1 = true
       MYSQL_DATABASE: mwohaji
       MYSQL_USER: mwohaji-server
       MYSQL_PASSWORD: 1234
