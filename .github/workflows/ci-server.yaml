@@ -29,3 +29,9 @@ jobs:
         
       - name: Run lint
         run: yarn lint:ci
+
+      - name: Setup mysql
+        run: yarn test:mysql
+
+      - name: Run test
+        run: yarn test
