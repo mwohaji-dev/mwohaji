@@ -37,4 +37,4 @@ jobs:
           mysql password: '1234'
 
       - name: Run test
-        run: yarn test
+        run: sleep 20s && yarn test # mysql이 완전히 켜질때 까지 기다립니다.
