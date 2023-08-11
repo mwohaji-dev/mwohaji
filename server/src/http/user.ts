@@ -10,11 +10,6 @@ userRouter.get('/:nickname', async (req, res) => {
     where: {nickname},
     include: {
       schedules: true,
-      scheduleSubscribing: {
-        include: {
-          scheduleSubscribing: true,
-        },
-      },
     },
   });
 

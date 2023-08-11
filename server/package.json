@@ -8,8 +8,9 @@
     "yarn": ">=1.22"
   },
   "scripts": {
-    "dev": "tsx watch src/server",
+    "dev": "NODE_ENV=development tsx watch src/server",
     "test": "jest",
+    "playground": "NODE_ENV=playground tsx src/playground",
     "test:mysql": "cd .. && docker-compose up -d mysql && cd server",
     "start": "NODE_ENV=production tsx src/server",
     "lint": "eslint . --fix && yarn typecheck",
