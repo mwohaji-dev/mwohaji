@@ -17,12 +17,6 @@ jobs:
       run:
         working-directory: server
     steps:
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: 'mwohaji'
-          mysql user: 'mwohaji-server'
-          mysql password: '1234'
-
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -35,6 +29,12 @@ jobs:
         
       - name: Run lint
         run: yarn lint:ci
+      # 테스트에서 사용할 mysql을 셋업해줍니다.
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'mwohaji'
+          mysql user: 'mwohaji-server'
+          mysql password: '1234'
 
       - name: Run test
         run: yarn test
