@@ -1,10 +1,10 @@
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
-import type {AppRouter} from '../../../server/src/router';
+import type {AppRouter} from '../../../server/src';
 export type {
   Content,
   MwohajiHashTagedInstagramPost,
   ContentType,
-} from '../../../server/src/server';
+} from '../../../server/src';
 import {SERVER_BASE_URL} from '../constants/server';
 
 export const trpc = createTRPCReact<AppRouter>();
