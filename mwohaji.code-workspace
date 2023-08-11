@@ -11,6 +11,6 @@
     }
   ],
   "settings": {
-    "jest.disabledWorkspaceFolders": ["server", "app"]
+    "jest.disabledWorkspaceFolders": ["server", "app", "web"]
   }
 }
