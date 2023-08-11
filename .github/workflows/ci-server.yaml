@@ -11,7 +11,7 @@ on:
       - "server/**"
 
 jobs:
-  lint:
+  test-and-lint:
     runs-on: ubuntu-latest
     defaults:
       run:
