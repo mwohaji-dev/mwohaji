@@ -66,4 +66,5 @@ local.properties
 
 # Env
 **/.env
-server/src/test.ts
+server/src/playground.ts
+server/.env.playground

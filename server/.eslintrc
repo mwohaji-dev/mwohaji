@@ -10,9 +10,15 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
   },
   "ignorePatterns": [
-    "src/test.ts"
+    "src/playground.ts"
   ]
 }
