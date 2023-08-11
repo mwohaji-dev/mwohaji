@@ -1,7 +1,7 @@
 import {createExpressMiddleware} from '@trpc/server/adapters/express';
 import express from 'express';
 import {config} from 'dotenv';
-import {appRouter} from './router';
+import {appRouter} from './trpc';
 
 export * from '@prisma/client';
 

@@ -11,5 +11,8 @@
   },
   "rules": {
     "prettier/prettier": "error"
-  }
+  },
+  "ignorePatterns": [
+    "src/test.ts"
+  ]
 }
