@@ -1,10 +1,19 @@
 import {Gender} from '@prisma/client';
 import request from 'supertest';
 import {beforeAll, expect, it} from '@jest/globals';
+import MockDate from 'mockdate';
 import prisma from '../../configs/prisma';
 import app from '../../app';
 
-beforeAll(async () => {
+beforeAll(() => {
+  MockDate.set('2023-06-27');
+});
+
+afterAll(() => {
+  MockDate.reset();
+});
+
+it('GET /:nickname', async () => {
   await prisma.user.create({
     data: {
       id: '1',
@@ -28,13 +37,31 @@ beforeAll(async () => {
           data: [
             {
               id: 'schedule1',
-              date: new Date(2023, 6, 28),
+              date: new Date('2023-06-26'),
               startTime: 11,
               endTime: 12,
             },
             {
               id: 'schedule2',
-              date: new Date(2023, 6, 29),
+              date: new Date('2023-06-27'),
+              startTime: 11,
+              endTime: 12,
+            },
+            {
+              id: 'schedule3',
+              date: new Date('2023-06-29'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule4',
+              date: new Date('2023-07-03'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule5',
+              date: new Date('2023-07-04'),
               startTime: 11,
               endTime: 15,
             },
@@ -43,9 +70,6 @@ beforeAll(async () => {
       },
     },
   });
-});
-
-it('GET /:nickname', async () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const {status, body} = await request(app).get('/users/user1').send();
 
@@ -57,30 +81,25 @@ it('GET /:nickname', async () => {
         "gender": "male",
         "id": "1",
         "nickname": "user1",
-        "scheduleSubscribing": [
-          {
-            "scheduleSubscribing": {
-              "birth": 2001,
-              "gender": "female",
-              "id": "2",
-              "nickname": "user2",
-            },
-            "subscriberId": "1",
-            "subscribingId": "2",
-          },
-        ],
         "schedules": [
           {
-            "date": "2023-07-27T00:00:00.000Z",
+            "date": "2023-06-27T00:00:00.000Z",
             "endTime": 12,
-            "id": "schedule1",
+            "id": "schedule2",
             "startTime": 11,
             "userId": "1",
           },
           {
-            "date": "2023-07-28T00:00:00.000Z",
+            "date": "2023-06-29T00:00:00.000Z",
             "endTime": 15,
-            "id": "schedule2",
+            "id": "schedule3",
+            "startTime": 11,
+            "userId": "1",
+          },
+          {
+            "date": "2023-07-03T00:00:00.000Z",
+            "endTime": 15,
+            "id": "schedule4",
             "startTime": 11,
             "userId": "1",
           },
