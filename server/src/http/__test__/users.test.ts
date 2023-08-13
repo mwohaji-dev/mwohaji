@@ -1,4 +1,3 @@
-import {Gender} from '@prisma/client';
 import request from 'supertest';
 import {beforeAll, expect, it} from '@jest/globals';
 import MockDate from 'mockdate';
@@ -17,8 +16,6 @@ it('GET /:nickname', async () => {
   await prisma.user.create({
     data: {
       id: '1',
-      birth: 2000,
-      gender: Gender.male,
       nickname: 'user1',
       scheduleSubscribing: {
         create: {
@@ -26,8 +23,6 @@ it('GET /:nickname', async () => {
             create: {
               id: '2',
               nickname: 'user2',
-              birth: 2001,
-              gender: Gender.female,
             },
           },
         },
@@ -77,8 +72,6 @@ it('GET /:nickname', async () => {
   expect(body).toMatchInlineSnapshot(`
     {
       "user": {
-        "birth": 2000,
-        "gender": "male",
         "id": "1",
         "nickname": "user1",
         "schedules": [

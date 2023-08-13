@@ -9,9 +9,7 @@ datasource db {
 
 model User {
   id                  String              @id @default(cuid())
-  nickname            String              @unique
-  gender              Gender
-  birth               Int // 1990
+  nickname            String              @unique @default(cuid())
   scheduleSubscribing ScheduleSubscribe[] @relation("ScheduleSubscribers") // 내가 구독하는 캘린더들
   scheduleSubscribers ScheduleSubscribe[] @relation("ScheduleSubscribing") // 내 캘린더를 구독하는 사람들
   schedules           Schedule[]
