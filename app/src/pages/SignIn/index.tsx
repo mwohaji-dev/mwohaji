@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useCallback} from 'react';
-import {login} from '@react-native-seoul/kakao-login';
+import {getProfile, login} from '@react-native-seoul/kakao-login';
+import appleAuth from '@invertase/react-native-apple-authentication';
 
 export default function SignIn() {
   const onKakao = useCallback(async () => {
@@ -11,7 +12,14 @@ export default function SignIn() {
     console.log(token);
   }, []);
 
-  const onApple = useCallback(() => {}, []);
+  useEffect(() => {
+    getProfile().then(res => console.log(res));
+  }, []);
+
+  const onApple = useCallback(async () => {
+    const c = await appleAuth.performRequest();
+    console.log(c);
+  }, []);
 
   return (
     <View style={styles.container}>
