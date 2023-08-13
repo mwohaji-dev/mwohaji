@@ -59,35 +59,35 @@ it('GET /:nickname', async () => {
   const {status, body} = await request(app).get('/users/user1').send();
 
   expect(status).toBe(200);
-  expect(body).toMatchInlineSnapshot(`
-    {
-      "user": {
-        "id": "1",
-        "nickname": "user1",
-        "schedules": [
-          {
-            "date": "2023-06-27T00:00:00.000Z",
-            "endTime": 12,
-            "id": "schedule2",
-            "startTime": 11,
-            "userId": "1",
-          },
-          {
-            "date": "2023-06-29T00:00:00.000Z",
-            "endTime": 15,
-            "id": "schedule3",
-            "startTime": 11,
-            "userId": "1",
-          },
-          {
-            "date": "2023-07-03T00:00:00.000Z",
-            "endTime": 15,
-            "id": "schedule4",
-            "startTime": 11,
-            "userId": "1",
-          },
-        ],
-      },
-    }
-  `);
+  expect(body).toStrictEqual({
+    user: {
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+      id: '1',
+      nickname: 'user1',
+      schedules: [
+        {
+          date: '2023-06-27T00:00:00.000Z',
+          endTime: 12,
+          id: 'schedule2',
+          startTime: 11,
+          userId: '1',
+        },
+        {
+          date: '2023-06-29T00:00:00.000Z',
+          endTime: 15,
+          id: 'schedule3',
+          startTime: 11,
+          userId: '1',
+        },
+        {
+          date: '2023-07-03T00:00:00.000Z',
+          endTime: 15,
+          id: 'schedule4',
+          startTime: 11,
+          userId: '1',
+        },
+      ],
+    },
+  });
 });
