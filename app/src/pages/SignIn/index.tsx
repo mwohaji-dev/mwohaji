@@ -2,23 +2,38 @@ import React, {useEffect} from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import auth from '@react-native-firebase/auth';
 import {useCallback} from 'react';
-import {getProfile, login} from '@react-native-seoul/kakao-login';
+import {login} from '@react-native-seoul/kakao-login';
 import appleAuth from '@invertase/react-native-apple-authentication';
 
 export default function SignIn() {
   const onKakao = useCallback(async () => {
-    const token = await login();
-    console.log(token);
-  }, []);
-
-  useEffect(() => {
-    getProfile().then(res => console.log(res));
+    const {idToken} = await login();
+    const credential = auth.OIDCAuthProvider.credential('kakao', idToken);
+    auth().signInWithCredential(credential);
   }, []);
 
   const onApple = useCallback(async () => {
-    const c = await appleAuth.performRequest();
-    console.log(c);
+    const {identityToken, nonce} = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL],
+    });
+
+    if (!identityToken) {
+      throw new Error('애플 로그인 실패');
+    }
+    const credential = auth.AppleAuthProvider.credential(identityToken, nonce);
+    auth().signInWithCredential(credential);
+  }, []);
+
+  function onAuthStateChanged(user) {
+    console.log(user);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
 
   return (
@@ -46,6 +61,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    color: '#000',
   },
   buttonContainer: {
     flexDirection: 'row',

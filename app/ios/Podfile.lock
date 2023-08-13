@@ -20,6 +20,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.72.3)
   - Firebase/Analytics (10.12.0):
     - Firebase/Core
+  - Firebase/Auth (10.12.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.12.0)
   - Firebase/Core (10.12.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 10.12.0)
@@ -43,6 +46,13 @@ PODS:
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAppCheckInterop (10.13.0)
+  - FirebaseAuth (10.12.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseCore (10.12.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -95,6 +105,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.1):
     - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (3.1.1)
   - hermes-engine (0.72.3):
     - hermes-engine/Pre-built (= 0.72.3)
   - hermes-engine/Pre-built (0.72.3)
@@ -562,6 +573,10 @@ PODS:
   - RNFBApp (18.2.0):
     - Firebase/CoreOnly (= 10.12.0)
     - React-Core
+  - RNFBAuth (18.3.0):
+    - Firebase/Auth (= 10.12.0)
+    - React-Core
+    - RNFBApp
   - RNGestureHandler (2.12.0):
     - React-Core
   - RNPermissions (3.8.4):
@@ -657,6 +672,7 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -669,12 +685,15 @@ SPEC REPOS:
     - Base64
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseInstallations
     - fmt
     - GoogleAppMeasurement
     - GoogleUtilities
+    - GTMSessionFetcher
     - JWT
     - KakaoSDKAuth
     - KakaoSDKCommon
@@ -793,6 +812,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
@@ -815,6 +836,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: c6bd9e179757b3c0ecf815864fae8032377903ef
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
+  FirebaseAppCheckInterop: 5e12dc623d443dedffcde9c6f3ed41510125d8ef
+  FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
   FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
   FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
@@ -822,6 +845,7 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   GoogleAppMeasurement: 2d800fab85e7848b1e66a6f8ce5bca06c5aad892
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   hermes-engine: 10fbd3f62405c41ea07e71973ea61e1878d07322
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   kakao-login: 3d7afeb8d49d4fa9a3ee579edb1b68c65bf20dac
@@ -876,6 +900,7 @@ SPEC CHECKSUMS:
   RNDeviceInfo: 5795b418ed3451ebcaf39384e6cf51f60cb931c9
   RNFBAnalytics: 767ad4566e94ce77c0b1bed9a7a02abda146423b
   RNFBApp: 9a54c7fd5a1c33684a862b51b9c00914a358061c
+  RNFBAuth: e3f51b2e4acc39e4664b24117f9106af493b2dd3
   RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
   RNPermissions: 5e1908f7381d825cbae3215975703a81c598f864
   RNReanimated: 9f7068e43b9358a46a688d94a5a3adb258139457
