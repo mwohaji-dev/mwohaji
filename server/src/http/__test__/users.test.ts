@@ -17,16 +17,6 @@ it('GET /:nickname', async () => {
     data: {
       id: '1',
       nickname: 'user1',
-      scheduleSubscribing: {
-        create: {
-          scheduleSubscribing: {
-            create: {
-              id: '2',
-              nickname: 'user2',
-            },
-          },
-        },
-      },
       schedules: {
         createMany: {
           data: [
