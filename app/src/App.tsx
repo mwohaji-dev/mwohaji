@@ -12,6 +12,7 @@ import {useMMKVNumber} from 'react-native-mmkv';
 import InAppReview from 'react-native-in-app-review';
 import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './Navigation';
+import {Auth} from './components/Auth';
 
 function App(): JSX.Element {
   const [loadCount = 1, setLoadCount] = useMMKVNumber('load');
@@ -43,7 +44,9 @@ function App(): JSX.Element {
           <SafeAreaProvider>
             {/* <BorderShadowLayout> */}
             <BottomSheetModalProvider>
-              <Navigation />
+              <Auth>
+                <Navigation />
+              </Auth>
             </BottomSheetModalProvider>
             {/* </BorderShadowLayout> */}
           </SafeAreaProvider>

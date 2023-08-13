@@ -1,4 +1,5 @@
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
+import auth from '@react-native-firebase/auth';
 import type {AppRouter} from '../../../server/src';
 export type {
   Content,
@@ -13,12 +14,10 @@ export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: SERVER_BASE_URL + '/trpc',
-      // TODO
-      // async headers() {
-      // return {
-      //   authorization: getAuthCookie(),
-      // };
-      // },
+      async headers() {
+        const authorization = await auth().currentUser?.getIdToken();
+        return {authorization};
+      },
     }),
   ],
 });

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,15 +25,6 @@ export default function SignIn() {
     }
     const credential = auth.AppleAuthProvider.credential(identityToken, nonce);
     auth().signInWithCredential(credential);
-  }, []);
-
-  function onAuthStateChanged(user) {
-    console.log(user);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
   }, []);
 
   return (
