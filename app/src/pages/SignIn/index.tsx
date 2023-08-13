@@ -1,11 +1,15 @@
 import React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useCallback} from 'react';
+import {login} from '@react-native-seoul/kakao-login';
 
 export default function SignIn() {
-  const onKakao = useCallback(() => {}, []);
+  const onKakao = useCallback(async () => {
+    const token = await login();
+    console.log(token);
+  }, []);
 
   const onApple = useCallback(() => {}, []);
 
@@ -14,11 +18,13 @@ export default function SignIn() {
       <Text style={styles.title}>플레이 캘린더 시작하기</Text>
       <View style={styles.buttonContainer}>
         <Pressable style={[styles.button, styles.kakao]} onPress={onKakao}>
-          <Icon name="chat" size={24} />
+          <Icon name="chat" size={24} color="#000" />
         </Pressable>
-        <Pressable style={[styles.button, styles.apple]} onPress={onApple}>
-          <Icon name="apple" size={24} color="#fff" />
-        </Pressable>
+        {Platform.OS === 'ios' && (
+          <Pressable style={[styles.button, styles.apple]} onPress={onApple}>
+            <Icon name="apple" size={24} color="#fff" />
+          </Pressable>
+        )}
       </View>
     </View>
   );

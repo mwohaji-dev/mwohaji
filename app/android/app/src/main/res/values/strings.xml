@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">뭐하지?</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">vjxHhDS458mwtYH_9yiCOSFyRwDzllEn2mW0q</string>
+    <string name="kakao_app_key">3f0e714f313834c18539a86f9cab1db3</string>
 </resources>
