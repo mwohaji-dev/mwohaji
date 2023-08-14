@@ -19,6 +19,7 @@
     ]
   },
   "ignorePatterns": [
-    "src/playground.ts"
+    "src/playground.ts",
+    "coverage"
   ]
 }
