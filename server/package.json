@@ -9,9 +9,9 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development tsx watch src/server",
-    "test": "jest",
+    "test": "NODE_ENV=test jest -i",
     "playground": "NODE_ENV=playground tsx src/playground",
-    "test:mysql": "cd .. && docker-compose up -d mysql && cd server",
+    "test:setup": "cd .. && docker-compose up -d mysql firebase && cd server",
     "start": "NODE_ENV=production tsx src/server",
     "lint": "eslint . --fix && yarn typecheck",
     "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
@@ -27,6 +27,8 @@
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "firebase": "^10.1.0",
+    "firebase-admin": "^11.10.1",
     "prisma": "^5.0.0",
     "tsx": "^3.12.7",
     "zod": "^3.21.4"
