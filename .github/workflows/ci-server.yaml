@@ -31,7 +31,7 @@ jobs:
         run: yarn lint:ci
 
       - name: Setup test
-        run: yarn test:setup
+        run: cd .. && docker compose version && docker compose up -d
 
       - name: Run test
         run: sleep 20s && yarn test # docker container가 완전히 켜질때 까지 기다립니다.
