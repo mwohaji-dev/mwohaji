@@ -29,12 +29,9 @@ jobs:
         
       - name: Run lint
         run: yarn lint:ci
-      # 테스트에서 사용할 mysql을 셋업해줍니다.
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: 'mwohaji'
-          mysql user: 'mwohaji-server'
-          mysql password: '1234'
+
+      - name: Setup test
+        run: yarn test:setup
 
       - name: Run test
-        run: sleep 20s && yarn test # mysql이 완전히 켜질때 까지 기다립니다.
+        run: sleep 20s && yarn test # docker container가 완전히 켜질때 까지 기다립니다.
