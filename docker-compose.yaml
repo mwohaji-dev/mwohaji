@@ -37,3 +37,13 @@ services:
         yarn prisma:initdb
         yarn start
 
+  firebase:
+    image: andreysenov/firebase-tools
+    container_name: firebase
+    volumes:
+      - ./.firebaserc:/home/node/.firebaserc
+      - ./firebase.json:/home/node/firebase.json
+    ports:
+      - 4001:4001 # emulator ui
+      - 9099:9099 # auth
+    command: ["firebase", "emulators:start", "--only", "auth"]
