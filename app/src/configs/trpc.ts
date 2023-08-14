@@ -1,5 +1,4 @@
 import {createTRPCReact, httpBatchLink} from '@trpc/react-query';
-import auth from '@react-native-firebase/auth';
 import type {AppRouter} from '../../../server/src';
 export type {
   Content,
@@ -7,6 +6,7 @@ export type {
   ContentType,
 } from '../../../server/src';
 import {SERVER_BASE_URL} from '../constants/server';
+import {auth} from './firebase';
 
 export const trpc = createTRPCReact<AppRouter>();
 
