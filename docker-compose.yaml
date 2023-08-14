@@ -22,13 +22,18 @@ services:
     build: 
       dockerfile: server/Dockerfile
     depends_on:
+      firebase:
+        condition: service_started
       mysql:
         condition: service_healthy
     ports:
       - 4000:4000
     environment:
+      - NODE_ENV=production
       - DATABASE_URL=mysql://mwohaji-server:1234@mysql/mwohaji
       - PORT=4000
+      - GOOGLE_CLOUD_PROJECT=mwohaji-c8a10
+      - FIREBASE_AUTH_EMULATOR_HOST=firebase:9099
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |

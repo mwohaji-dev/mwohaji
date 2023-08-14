@@ -15,7 +15,12 @@ export const trpcClient = trpc.createClient({
     httpBatchLink({
       url: SERVER_BASE_URL + '/trpc',
       async headers() {
-        const authorization = await auth().currentUser?.getIdToken();
+        const currentUser = auth().currentUser;
+        if (!currentUser) {
+          return {};
+        }
+        const authorization = await currentUser.getIdToken();
+
         return {authorization};
       },
     }),

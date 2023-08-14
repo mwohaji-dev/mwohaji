@@ -4,6 +4,7 @@ import deviceInfoModule from 'react-native-device-info';
 // 로컬에서 실제 서버에 연결해볼때 on 할 것
 const PROD_TEST_MODE = false;
 // yarn localip를 통해 가져올 수 있습니다.
+// 실제 디바이스에서 사용할때 사용해주세요.
 const IP_ADDRESS = '172.20.10.3';
 
 export const SERVER_BASE_URL = (() => {
