@@ -11,7 +11,7 @@
     "dev": "NODE_ENV=development tsx watch src/server",
     "test": "NODE_ENV=test jest -i",
     "playground": "NODE_ENV=playground tsx src/playground",
-    "test:setup": "cd .. && docker-compose up -d mysql firebase && cd server",
+    "test:setup": "cd .. && docker compose up -d mysql firebase && cd server",
     "start": "NODE_ENV=production tsx src/server",
     "lint": "eslint . --fix && yarn typecheck",
     "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
