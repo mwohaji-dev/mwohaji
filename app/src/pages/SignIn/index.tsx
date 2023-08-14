@@ -2,7 +2,7 @@ import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth from '@react-native-firebase/auth';
+import {auth} from '../../configs/firebase';
 import {useCallback} from 'react';
 import {login} from '@react-native-seoul/kakao-login';
 import appleAuth from '@invertase/react-native-apple-authentication';

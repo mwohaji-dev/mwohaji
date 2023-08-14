@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {auth} from '../configs/firebase';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {PropsWithChildren} from 'react';
 import SignIn from '../pages/SignIn';
 import NicknameEdit from '../pages/NicknameEdit';
