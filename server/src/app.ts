@@ -3,6 +3,7 @@ import express from 'express';
 
 import {appRouter} from './trpc';
 import userRouter from './http/user';
+import createContext from './middlewares/createContext';
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(
   '/trpc',
   createExpressMiddleware({
     router: appRouter,
-    createContext: () => ({}),
+    createContext,
   }),
 );
 
