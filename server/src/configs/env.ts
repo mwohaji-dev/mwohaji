@@ -7,7 +7,12 @@ if (NODE_ENV !== 'production') {
   config({path: `.env.${NODE_ENV}`});
 }
 
-export const {PORT, DATABASE_URL} = process.env as {
+export const {
+  PORT,
+  DATABASE_URL,
+  FIREBASE_AUTH_EMULATOR_HOST,
+  GOOGLE_CLOUD_PROJECT,
+} = process.env as {
   [key: string]: string;
 };
 export {NODE_ENV};
