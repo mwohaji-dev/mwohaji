@@ -1,8 +1,10 @@
 import {z} from 'zod';
 import {TRPCError} from '@trpc/server';
+import cuid from 'cuid';
 import prisma from '../configs/prisma';
 import {router} from '../configs/trpc';
 import {publicProcedure, authorizedProcedure} from '../configs/procedure';
+import {auth} from '../configs/firebase';
 
 const userRouter = router({
   me: authorizedProcedure.query(({ctx}) => {
@@ -53,5 +55,22 @@ const userRouter = router({
       });
       return user;
     }),
+  withdrawal: authorizedProcedure.mutation(async ({ctx}) => {
+    const {id} = ctx.user;
+    // soft delete
+    // deletedAt을 추가하고 모든 개인정보를 cuid로 바꾼다.
+    await prisma.$transaction(async t => {
+      // firebase에서도 제거해준다.
+      await auth.deleteUser(id);
+      await t.user.update({
+        where: {id},
+        data: {
+          id: cuid(),
+          nickname: cuid(),
+          deletedAt: new Date(),
+        },
+      });
+    });
+  }),
 });
 export default userRouter;

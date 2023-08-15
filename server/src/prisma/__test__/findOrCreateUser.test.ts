@@ -6,21 +6,11 @@ test('findUser', async () => {
   const id = 'find-test-id';
   await prisma.user.create({data: {id}});
   const user = await findOrCreateUser(id);
-  expect(user).toStrictEqual({
-    id,
-    createdAt: expect.any(Date),
-    nickname: expect.any(String),
-    updatedAt: expect.any(Date),
-  });
+  expect(user.id).toBe(id);
 });
 
 test('createUser', async () => {
   const id = 'create-test-id';
   const user = await findOrCreateUser(id);
-  expect(user).toStrictEqual({
-    id,
-    createdAt: expect.any(Date),
-    nickname: expect.any(String),
-    updatedAt: expect.any(Date),
-  });
+  expect(user.id).toBe(id);
 });

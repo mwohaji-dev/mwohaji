@@ -2,6 +2,7 @@ import {expect} from '@jest/globals';
 import {TRPCError} from '@trpc/server';
 import prisma from '../../configs/prisma';
 import userRouter from '../user';
+import {auth} from '../../configs/firebase';
 
 test('me', async () => {
   const user = await prisma.user.create({data: {id: 'test-id'}});
@@ -43,3 +44,15 @@ test.each([{nickname: 'a'}, {nickname: 'a'.repeat(17)}, {nickname: '@1234'}])(
     expect(error.code).toBe('BAD_REQUEST');
   },
 );
+
+test('withdrawal', async () => {
+  const id = 'test-id';
+  const user = await prisma.user.create({data: {id}});
+  await auth.createUser({uid: id});
+  await expect(auth.getUser(id)).resolves.not.toThrow();
+
+  await userRouter.createCaller({user}).withdrawal();
+
+  await expect(auth.getUser(id)).rejects.toThrow();
+  await expect(prisma.user.findMany()).resolves.toStrictEqual([]);
+});
