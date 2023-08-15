@@ -25,8 +25,8 @@ export function Auth({}: PropsWithChildren) {
     return <SignIn />;
   }
 
-  if (data.nickname.length > 12) {
-    // 12자 이상이면 기본값이 cuid로 판단하고 닉네임 설정 페이지로 이동
+  if (data.nickname.length > 16) {
+    // 16자 이상이면 기본값이 cuid로 판단하고 닉네임 설정 페이지로 이동
     return <NicknameEdit />;
   }
 
