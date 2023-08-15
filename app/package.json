@@ -39,6 +39,7 @@
     "@gorhom/bottom-sheet": "^4.4.7",
     "@invertase/react-native-apple-authentication": "^2.2.2",
     "@jest/globals": "^29.6.2",
+    "@react-native-clipboard/clipboard": "^1.11.2",
     "@react-native-firebase/analytics": "^18.2.0",
     "@react-native-firebase/app": "^18.2.0",
     "@react-native-firebase/auth": "^18.3.0",
