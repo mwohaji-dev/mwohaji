@@ -31,5 +31,27 @@ const userRouter = router({
       }
       return user;
     }),
+  editNickname: authorizedProcedure
+    .input(
+      z.object({
+        nickname: z
+          .string()
+          .min(4, '닉네임은 최소 4글자 여야 합니다.')
+          .max(16, '닉네임은 최대 16글자 까지 가능합니다.')
+          .regex(
+            /^[a-zA-Z0-9-_]+$/,
+            '닉네임은 영문, 숫자, -, _ 만 가능합니다.',
+          ),
+      }),
+    )
+    .mutation(async ({ctx, input}) => {
+      const {id} = ctx.user;
+      const {nickname} = input;
+      const user = await prisma.user.update({
+        where: {id},
+        data: {nickname},
+      });
+      return user;
+    }),
 });
 export default userRouter;
