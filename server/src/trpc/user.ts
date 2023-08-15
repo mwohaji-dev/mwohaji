@@ -49,11 +49,23 @@ const userRouter = router({
     .mutation(async ({ctx, input}) => {
       const {id} = ctx.user;
       const {nickname} = input;
-      const user = await prisma.user.update({
-        where: {id},
-        data: {nickname},
+      const result = prisma.$transaction(async t => {
+        const prevUser = await t.user.findUnique({where: {nickname}});
+        if (prevUser) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: '이미 존재하는 닉네임입니다.',
+          });
+        }
+
+        const user = await t.user.update({
+          where: {id},
+          data: {nickname},
+        });
+        return user;
       });
-      return user;
+
+      return result;
     }),
   withdrawal: authorizedProcedure.mutation(async ({ctx}) => {
     const {id} = ctx.user;

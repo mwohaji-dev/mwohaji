@@ -52,10 +52,10 @@ it('GET /:nickname', async () => {
 
   expect(status).toBe(200);
   // createdAt, updatedAt DB에서 generated 되어 mocking이 불가능
-  expect(_.omit(body, ['createdAt', 'updatedAt'])).toMatchInlineSnapshot(`
+  expect(_.omit(body, ['user.createdAt', 'user.updatedAt']))
+    .toMatchInlineSnapshot(`
     {
       "user": {
-        "createdAt": "2023-08-15T11:43:07.786Z",
         "deletedAt": null,
         "id": "1",
         "nickname": "user1",
@@ -82,7 +82,6 @@ it('GET /:nickname', async () => {
             "userId": "1",
           },
         ],
-        "updatedAt": "2023-08-15T11:43:07.786Z",
       },
     }
   `);

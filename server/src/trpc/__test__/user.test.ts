@@ -45,6 +45,18 @@ test.each([{nickname: 'a'}, {nickname: 'a'.repeat(17)}, {nickname: '@1234'}])(
   },
 );
 
+test('editNickname duplicate', async () => {
+  const user = await prisma.user.create({data: {id: 'test-id'}});
+  await prisma.user.create({
+    data: {id: 'dup-id', nickname: 'duplicate'},
+  });
+  const caller = userRouter
+    .createCaller({user})
+    .editNickname({nickname: 'duplicate'});
+
+  await expect(caller).rejects.toThrowError('이미 존재하는 닉네임입니다.');
+});
+
 test('withdrawal', async () => {
   const id = 'test-id';
   const user = await prisma.user.create({data: {id}});
