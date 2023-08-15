@@ -10,7 +10,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {useMMKVNumber} from 'react-native-mmkv';
 import InAppReview from 'react-native-in-app-review';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Navigation from './Navigation';
 import {Auth} from './components/Auth';
 import Toast from 'react-native-toast-message';
@@ -38,7 +38,14 @@ function App(): JSX.Element {
 
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          colors: {
+            ...DefaultTheme.colors,
+            background: '#fff',
+          },
+          dark: false,
+        }}>
         {/* <LocationProvider> */}
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
