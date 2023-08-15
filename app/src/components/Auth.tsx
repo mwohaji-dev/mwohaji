@@ -3,7 +3,7 @@ import {auth} from '../configs/firebase';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {PropsWithChildren} from 'react';
 import SignIn from '../pages/SignIn';
-import NicknameEdit from '../pages/NicknameEdit';
+import NicknameInit from '../pages/NicknameInit';
 import {trpc} from '../configs/trpc';
 import Navigation from '../Navigation';
 
@@ -27,7 +27,7 @@ export function Auth({}: PropsWithChildren) {
 
   if (data.nickname.length > 16) {
     // 16자 이상이면 기본값이 cuid로 판단하고 닉네임 설정 페이지로 이동
-    return <NicknameEdit />;
+    return <NicknameInit />;
   }
 
   return <Navigation />;

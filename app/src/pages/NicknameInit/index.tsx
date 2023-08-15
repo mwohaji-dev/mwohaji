@@ -1,18 +1,15 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Pressable, StyleSheet, TextInput, View} from 'react-native';
 import Text from '../../elements/Text';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {trpc} from '../../configs/trpc';
-import {useNavigation} from '@react-navigation/native';
 
-export default function NicknameEdit() {
-  const {setOptions, goBack} = useNavigation();
+export default function NicknameInit() {
+  const {top} = useSafeAreaInsets();
   const [nickname, setNickname] = useState('');
   const utils = trpc.useContext();
   const {mutate} = trpc.user.editNickname.useMutation({
-    onSuccess: () => {
-      utils.user.me.fetch();
-      goBack();
-    },
+    onSuccess: () => utils.user.me.fetch(),
   });
 
   const onChangeText = useCallback((text: string) => {
@@ -22,22 +19,13 @@ export default function NicknameEdit() {
 
   const onConfirm = useCallback(() => mutate({nickname}), [mutate, nickname]);
 
-  const headerRight = useMemo(
-    () => (
-      <Pressable onPress={onConfirm} style={[styles.confirmButton]}>
-        <Text style={styles.confirm}>완료</Text>
-      </Pressable>
-    ),
-    [onConfirm],
-  );
-
-  useEffect(
-    () => setOptions({headerRight: () => headerRight}),
-    [headerRight, setOptions],
-  );
-
   return (
     <View style={styles.container}>
+      <Pressable
+        onPress={onConfirm}
+        style={[styles.confirmButton, {top: top + 16}]}>
+        <Text style={styles.confirm}>완료</Text>
+      </Pressable>
       <TextInput
         style={styles.input}
         placeholder="닉네임을 입력해주세요 (영문, 숫자, -, _)"
@@ -62,10 +50,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   confirmButton: {
-    width: 56,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    right: 16,
   },
   confirm: {
     color: '#3584FA',
