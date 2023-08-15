@@ -13,6 +13,7 @@ import InAppReview from 'react-native-in-app-review';
 import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './Navigation';
 import {Auth} from './components/Auth';
+import Toast from 'react-native-toast-message';
 
 function App(): JSX.Element {
   const [loadCount = 1, setLoadCount] = useMMKVNumber('load');
@@ -36,25 +37,28 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <NavigationContainer>
-      {/* <LocationProvider> */}
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          {/* <ContentsProvider> */}
-          <SafeAreaProvider>
-            {/* <BorderShadowLayout> */}
-            <BottomSheetModalProvider>
-              <Auth>
-                <Navigation />
-              </Auth>
-            </BottomSheetModalProvider>
-            {/* </BorderShadowLayout> */}
-          </SafeAreaProvider>
-          {/* </ContentsProvider> */}
-        </QueryClientProvider>
-      </trpc.Provider>
-      {/* </LocationProvider> */}
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        {/* <LocationProvider> */}
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            {/* <ContentsProvider> */}
+            <SafeAreaProvider>
+              {/* <BorderShadowLayout> */}
+              <BottomSheetModalProvider>
+                <Auth>
+                  <Navigation />
+                </Auth>
+              </BottomSheetModalProvider>
+              {/* </BorderShadowLayout> */}
+            </SafeAreaProvider>
+            {/* </ContentsProvider> */}
+          </QueryClientProvider>
+        </trpc.Provider>
+        {/* </LocationProvider> */}
+      </NavigationContainer>
+      <Toast />
+    </>
   );
 }
 
