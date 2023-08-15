@@ -8,6 +8,8 @@ import BasicLoading from '../../components/BasicLoading';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
+import AddTimeBottomSheet from './AddTimeBottomSheet';
+import useModal from '../../hooks/useModal';
 
 function Render() {
   const [{nickname}] = trpc.user.me.useSuspenseQuery();
@@ -33,6 +35,7 @@ function Render() {
 export default function MyCalandar() {
   const {bottom} = useSafeAreaInsets();
   const {setOptions, navigate} = useNavigation();
+  const [visible, open, close] = useModal();
   const right = useMemo(
     () => (
       <Pressable style={styles.right} onPress={() => navigate('Settings')}>
@@ -48,9 +51,10 @@ export default function MyCalandar() {
       <Suspense fallback={<BasicLoading />}>
         <Render />
       </Suspense>
-      <Pressable style={[styles.fab, {bottom: bottom + 24}]}>
+      <Pressable onPress={open} style={[styles.fab, {bottom: bottom + 24}]}>
         <Icon name="plus" size={24} color="#fff" />
       </Pressable>
+      <AddTimeBottomSheet visible={visible} onClose={close} />
     </>
   );
 }
