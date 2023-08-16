@@ -44,8 +44,10 @@ export default function Calandar({schedules, onPressSchedule}: CalandarProps) {
                 <Text style={[styles.day, {color}]}>{day}</Text>
               </View>
               {schedules.map(schedule => (
-                <Pressable onPress={() => onPressSchedule(schedule)}>
-                  <Text style={styles.schedule} key={schedule.id}>
+                <Pressable
+                  key={schedule.id}
+                  onPress={() => onPressSchedule(schedule)}>
+                  <Text style={styles.schedule}>
                     {schedule.startTime}~{schedule.endTime}
                   </Text>
                 </Pressable>

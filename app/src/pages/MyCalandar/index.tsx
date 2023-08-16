@@ -13,8 +13,12 @@ import useModal from '../../hooks/useModal';
 import Calandar from '../../components/Calandar';
 
 function Render() {
+  const utils = trpc.useContext();
   const [{nickname}] = trpc.user.me.useSuspenseQuery();
   const [schedules] = trpc.schedule.byMe.useSuspenseQuery() as Schedule[][]; // TODO
+  const {mutate} = trpc.schedule.remove.useMutation({
+    onSuccess: () => utils.schedule.byMe.refetch(),
+  });
 
   const onCreateLink = useCallback(() => {
     const link = `mwohaji.com/@${nickname}`;
@@ -29,10 +33,10 @@ function Render() {
         '정말로 삭제하시겠습니까?',
         [
           {text: '취소', style: 'cancel'},
-          {text: '예', style: 'destructive'},
+          {text: '예', style: 'destructive', onPress: () => mutate({id})},
         ],
       ),
-    [],
+    [mutate],
   );
 
   return (
