@@ -49,17 +49,13 @@ function App(): JSX.Element {
         {/* <LocationProvider> */}
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
-            {/* <ContentsProvider> */}
             <SafeAreaProvider>
-              {/* <BorderShadowLayout> */}
               <BottomSheetModalProvider>
                 <Auth>
                   <Navigation />
                 </Auth>
               </BottomSheetModalProvider>
-              {/* </BorderShadowLayout> */}
             </SafeAreaProvider>
-            {/* </ContentsProvider> */}
           </QueryClientProvider>
         </trpc.Provider>
         {/* </LocationProvider> */}

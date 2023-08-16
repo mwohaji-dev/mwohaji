@@ -1,13 +1,14 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
 import Modal from 'react-native-modal';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Text from '../../elements/Text';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import dayjs from 'dayjs';
 import {DAYS} from '../../constants/utils';
 import _ from 'lodash';
 import NumberPicker from '../../components/NumberPicker';
+import {trpc} from '../../configs/trpc';
+import {useNavigation} from '@react-navigation/native';
 
 const size = (Dimensions.get('window').width - 24 * 2 - 16 * 6) / 7;
 
@@ -21,6 +22,15 @@ export default function AddTimeBottomSheet({
   onClose,
 }: AddTimeBottomSheetProps) {
   const {bottom} = useSafeAreaInsets();
+
+  const utils = trpc.useContext();
+  const {mutate} = trpc.schedule.add.useMutation({
+    onSuccess: () => {
+      utils.schedule.invalidate();
+      onClose();
+    },
+  });
+
   const weeks = useMemo(
     () =>
       _.range(7)
@@ -38,8 +48,12 @@ export default function AddTimeBottomSheet({
   const addColor = useMemo(() => (addable ? '#3584FA' : '#888'), [addable]);
 
   const onAdd = useCallback(() => {
-    console.log('add', acitveDate, startTime, endTime);
-  }, [acitveDate, startTime, endTime]);
+    mutate({
+      date: dayjs(acitveDate).format('YYYY-MM-DD'),
+      startTime,
+      endTime,
+    });
+  }, [acitveDate, startTime, endTime, mutate]);
 
   return (
     <Modal
