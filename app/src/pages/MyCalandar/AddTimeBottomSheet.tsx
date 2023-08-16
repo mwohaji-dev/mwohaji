@@ -8,7 +8,6 @@ import {DAYS} from '../../constants/utils';
 import _ from 'lodash';
 import NumberPicker from '../../components/NumberPicker';
 import {trpc} from '../../configs/trpc';
-import {useNavigation} from '@react-navigation/native';
 
 const size = (Dimensions.get('window').width - 24 * 2 - 16 * 6) / 7;
 
@@ -48,12 +47,15 @@ export default function AddTimeBottomSheet({
   const addColor = useMemo(() => (addable ? '#3584FA' : '#888'), [addable]);
 
   const onAdd = useCallback(() => {
+    if (!addable) {
+      return;
+    }
     mutate({
       date: dayjs(acitveDate).format('YYYY-MM-DD'),
       startTime,
       endTime,
     });
-  }, [acitveDate, startTime, endTime, mutate]);
+  }, [addable, acitveDate, startTime, endTime, mutate]);
 
   return (
     <Modal
