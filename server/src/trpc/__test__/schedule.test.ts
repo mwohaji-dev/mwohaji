@@ -119,3 +119,31 @@ test('my', async () => {
     ]
   `);
 });
+
+test('remove', async () => {
+  const user = await prisma.user.create({
+    data: {
+      id: '1',
+      nickname: 'user1',
+      schedules: {
+        createMany: {
+          data: [
+            {
+              id: 'schedule1',
+              date: new Date('2023-05-10'),
+              startTime: 11,
+              endTime: 12,
+            },
+          ],
+        },
+      },
+    },
+  });
+
+  await expect(
+    scheduleRouter.createCaller({user}).remove({id: 'schedule1'}),
+  ).resolves.not.toThrowError();
+  await expect(
+    scheduleRouter.createCaller({user}).remove({id: 'schedule1'}),
+  ).rejects.toThrowError('해당 스케줄이 존재하지 않습니다.');
+});

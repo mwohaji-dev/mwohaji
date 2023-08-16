@@ -68,5 +68,20 @@ const scheduleRouter = router({
     });
     return schedules;
   }),
+  remove: authorizedProcedure
+    .input(z.object({id: z.string()}))
+    .mutation(async ({ctx, input}) => {
+      const {id: userId} = ctx.user;
+      const {id} = input;
+
+      const schedule = await prisma.schedule.findFirst({where: {id, userId}});
+      if (!schedule) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: '해당 스케줄이 존재하지 않습니다.',
+        });
+      }
+      await prisma.schedule.delete({where: {id}});
+    }),
 });
 export default scheduleRouter;
