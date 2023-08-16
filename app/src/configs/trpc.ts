@@ -4,6 +4,7 @@ export type {
   Content,
   MwohajiHashTagedInstagramPost,
   ContentType,
+  Schedule,
 } from '../../../server/src';
 import {SERVER_BASE_URL} from '../constants/server';
 import {auth} from './firebase';

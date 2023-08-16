@@ -47,3 +47,75 @@ test('add', async () => {
     scheduleRouter.createCaller({user}).add({date, startTime: 12, endTime: 13}),
   ).resolves.not.toThrowError();
 });
+
+test('my', async () => {
+  const user = await prisma.user.create({
+    data: {
+      id: '1',
+      nickname: 'user1',
+      schedules: {
+        createMany: {
+          data: [
+            {
+              id: 'schedule1',
+              date: new Date('2023-05-10'),
+              startTime: 11,
+              endTime: 12,
+            },
+            {
+              id: 'schedule2',
+              date: new Date('2023-05-11'),
+              startTime: 11,
+              endTime: 12,
+            },
+            {
+              id: 'schedule3',
+              date: new Date('2023-05-13'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule4',
+              date: new Date('2023-05-17'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule5',
+              date: new Date('2023-05-18'),
+              startTime: 11,
+              endTime: 15,
+            },
+          ],
+        },
+      },
+    },
+  });
+
+  const result = await scheduleRouter.createCaller({user}).byMe();
+  expect(result).toMatchInlineSnapshot(`
+    [
+      {
+        "date": 2023-05-11T00:00:00.000Z,
+        "endTime": 12,
+        "id": "schedule2",
+        "startTime": 11,
+        "userId": "1",
+      },
+      {
+        "date": 2023-05-13T00:00:00.000Z,
+        "endTime": 15,
+        "id": "schedule3",
+        "startTime": 11,
+        "userId": "1",
+      },
+      {
+        "date": 2023-05-17T00:00:00.000Z,
+        "endTime": 15,
+        "id": "schedule4",
+        "startTime": 11,
+        "userId": "1",
+      },
+    ]
+  `);
+});

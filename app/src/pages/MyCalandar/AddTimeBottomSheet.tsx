@@ -25,7 +25,7 @@ export default function AddTimeBottomSheet({
   const utils = trpc.useContext();
   const {mutate} = trpc.schedule.add.useMutation({
     onSuccess: () => {
-      utils.schedule.invalidate();
+      utils.schedule.byMe.refetch();
       onClose();
     },
   });

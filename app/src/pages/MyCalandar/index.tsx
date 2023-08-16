@@ -1,7 +1,7 @@
 import React, {Suspense, useCallback, useEffect, useMemo} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
-import {trpc} from '../../configs/trpc';
+import {Schedule, trpc} from '../../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import BasicLoading from '../../components/BasicLoading';
@@ -10,15 +10,30 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
 import AddTimeBottomSheet from './AddTimeBottomSheet';
 import useModal from '../../hooks/useModal';
+import Calandar from '../../components/Calandar';
 
 function Render() {
   const [{nickname}] = trpc.user.me.useSuspenseQuery();
+  const [schedules] = trpc.schedule.byMe.useSuspenseQuery() as Schedule[][]; // TODO
 
   const onCreateLink = useCallback(() => {
     const link = `mwohaji.com/@${nickname}`;
     Clipboard.setString(link);
     Toast.show({text1: '클립보드에 복사되었습니다.', text2: link});
   }, [nickname]);
+
+  const onPressSchedule = useCallback(
+    ({startTime, endTime, id}: Schedule) =>
+      Alert.alert(
+        `일정 삭제 (${startTime}~${endTime})`,
+        '정말로 삭제하시겠습니까?',
+        [
+          {text: '취소', style: 'cancel'},
+          {text: '예', style: 'destructive'},
+        ],
+      ),
+    [],
+  );
 
   return (
     <View>
@@ -28,6 +43,7 @@ function Render() {
           <Text style={styles.createLink}>링크 생성</Text>
         </Pressable>
       </View>
+      <Calandar schedules={schedules} onPressSchedule={onPressSchedule} />
     </View>
   );
 }
