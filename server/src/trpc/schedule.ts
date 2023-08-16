@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import {TRPCError} from '@trpc/server';
+import dayjs from 'dayjs';
 import prisma from '../configs/prisma';
 import {router} from '../configs/trpc';
 import {authorizedProcedure} from '../configs/procedure';
@@ -49,5 +50,23 @@ const scheduleRouter = router({
       });
       return schedule;
     }),
+  byMe: authorizedProcedure.query(async ({ctx}) => {
+    const {id} = ctx.user;
+
+    const now = dayjs();
+    const startDate = now.format('YYYY-MM-DD');
+    const endDate = now.add(7, 'day').format('YYYY-MM-DD');
+
+    const schedules = await prisma.schedule.findMany({
+      where: {
+        userId: id,
+        date: {
+          gte: new Date(startDate),
+          lt: new Date(endDate),
+        },
+      },
+    });
+    return schedules;
+  }),
 });
 export default scheduleRouter;
