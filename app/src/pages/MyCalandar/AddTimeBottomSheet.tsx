@@ -1,11 +1,13 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
 import Modal from 'react-native-modal';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Text from '../../elements/Text';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import dayjs from 'dayjs';
 import {DAYS} from '../../constants/utils';
 import _ from 'lodash';
+import NumberPicker from '../../components/NumberPicker';
 
 const size = (Dimensions.get('window').width - 24 * 2 - 16 * 6) / 7;
 
@@ -27,6 +29,17 @@ export default function AddTimeBottomSheet({
     [],
   );
   const [acitveDate, setActiveDate] = useState(weeks[0].date);
+  const [startTime, setStartTime] = useState(11);
+  const [endTime, setEndTime] = useState(13);
+  const addable = useMemo(
+    () => acitveDate && startTime < endTime,
+    [acitveDate, startTime, endTime],
+  );
+  const addColor = useMemo(() => (addable ? '#3584FA' : '#888'), [addable]);
+
+  const onAdd = useCallback(() => {
+    console.log('add', acitveDate, startTime, endTime);
+  }, [acitveDate, startTime, endTime]);
 
   return (
     <Modal
@@ -38,8 +51,8 @@ export default function AddTimeBottomSheet({
       useNativeDriver>
       <View style={styles.header}>
         <Text style={styles.title}>놀 수 있는 시간 추가</Text>
-        <Pressable>
-          <Text style={styles.add}>추가</Text>
+        <Pressable onPress={onAdd}>
+          <Text style={[styles.add, {color: addColor}]}>추가</Text>
         </Pressable>
       </View>
       <View style={styles.datesContainer}>
@@ -57,6 +70,16 @@ export default function AddTimeBottomSheet({
             </Pressable>
           );
         })}
+      </View>
+      <View style={styles.timePicker}>
+        <NumberPicker
+          min={0}
+          max={23}
+          value={startTime}
+          onChange={setStartTime}
+        />
+        <Text style={styles.time}>~</Text>
+        <NumberPicker min={1} max={24} value={endTime} onChange={setEndTime} />
       </View>
     </Modal>
   );
@@ -89,7 +112,6 @@ const styles = StyleSheet.create({
   add: {
     fontSize: 14,
     lineHeight: 24,
-    color: '#3584FA',
   },
   datesContainer: {
     width: '100%',
@@ -110,5 +132,23 @@ const styles = StyleSheet.create({
   day: {
     fontSize: 14,
     lineHeight: 24,
+  },
+  timePicker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  time: {
+    lineHeight: 56,
+    fontSize: 32,
+    color: '#000',
+  },
+  startTime: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  endTime: {
+    flex: 1,
+    alignItems: 'flex-start',
   },
 });
