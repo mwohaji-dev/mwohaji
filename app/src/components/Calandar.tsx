@@ -29,6 +29,14 @@ export default function Calandar({schedules, onPressSchedule}: CalandarProps) {
     [schedules],
   );
 
+  if (!schedules.length) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.empty}>등록된 일정이 없습니다.</Text>
+      </View>
+    );
+  }
+
   return (
     <View>
       <View style={styles.datesContainer}>
@@ -91,6 +99,17 @@ const styles = StyleSheet.create({
   },
   schedule: {
     fontSize: 12,
+    lineHeight: 24,
+    color: '#000',
+  },
+  emptyContainer: {
+    width: '100%',
+    padding: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  empty: {
+    fontSize: 14,
     lineHeight: 24,
     color: '#000',
   },
