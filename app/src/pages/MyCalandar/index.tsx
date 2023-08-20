@@ -1,5 +1,5 @@
 import React, {Suspense, useCallback, useEffect, useMemo} from 'react';
-import {Alert, Pressable, StyleSheet, View} from 'react-native';
+import {Alert, FlatList, Pressable, StyleSheet, View} from 'react-native';
 import Text from '../../elements/Text';
 import {Schedule, trpc} from '../../configs/trpc';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,8 +16,13 @@ function Render() {
   const utils = trpc.useContext();
   const [{nickname}] = trpc.user.me.useSuspenseQuery();
   const [schedules] = trpc.schedule.byMe.useSuspenseQuery() as Schedule[][]; // TODO
-  const {mutate} = trpc.schedule.remove.useMutation({
+  const [scheduleSubscribe, {refetch, isRefetching}] =
+    trpc.scheduleSubscribe.subscribing.useSuspenseQuery();
+  const {mutate: removeSchedule} = trpc.schedule.remove.useMutation({
     onSuccess: () => utils.schedule.byMe.refetch(),
+  });
+  const {mutate: unsubscribe} = trpc.scheduleSubscribe.unsubscribe.useMutation({
+    onSuccess: () => utils.scheduleSubscribe.subscribing.refetch(),
   });
 
   const onCreateLink = useCallback(() => {
@@ -33,22 +38,55 @@ function Render() {
         '정말로 삭제하시겠습니까?',
         [
           {text: '취소', style: 'cancel'},
-          {text: '예', style: 'destructive', onPress: () => mutate({id})},
+          {
+            text: '예',
+            style: 'destructive',
+            onPress: () => removeSchedule({id}),
+          },
         ],
       ),
-    [mutate],
+    [removeSchedule],
+  );
+  const onPressUnsubscribe = useCallback(
+    (subscribingId: string) =>
+      Alert.alert('구독 취소', '정말로 취소하시겠습니까?', [
+        {text: '아니요', style: 'cancel'},
+        {
+          text: '예',
+          style: 'destructive',
+          onPress: () => unsubscribe({subscribingId}),
+        },
+      ]),
+    [unsubscribe],
   );
 
   return (
-    <View>
-      <View style={styles.header}>
-        <Text style={styles.nickname}>@{nickname}</Text>
-        <Pressable onPress={onCreateLink}>
-          <Text style={styles.createLink}>링크 생성</Text>
-        </Pressable>
-      </View>
-      <Calandar schedules={schedules} onPressSchedule={onPressSchedule} />
-    </View>
+    <FlatList
+      data={scheduleSubscribe}
+      onRefresh={refetch}
+      refreshing={isRefetching}
+      ListHeaderComponent={
+        <>
+          <View style={styles.header}>
+            <Text style={styles.nickname}>@{nickname}</Text>
+            <Pressable onPress={onCreateLink}>
+              <Text style={styles.createLink}>링크 생성</Text>
+            </Pressable>
+          </View>
+          <Calandar schedules={schedules} onPressSchedule={onPressSchedule} />
+        </>
+      }
+      renderItem={({item}) => (
+        <View style={styles.card}>
+          <Text style={styles.cardNickname}>
+            @{item.scheduleSubscribing.nickname}
+          </Text>
+          <Pressable onPress={() => onPressUnsubscribe(item.subscribingId)}>
+            <Text style={styles.unsubscribe}>구독취소</Text>
+          </Pressable>
+        </View>
+      )}
+    />
   );
 }
 
@@ -116,5 +154,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     color: '#3584FA',
+  },
+  card: {
+    height: 56,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  cardNickname: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 24,
+    color: '#000',
+  },
+  unsubscribe: {
+    fontSize: 14,
+    lineHeight: 24,
+    color: '#888',
   },
 });
