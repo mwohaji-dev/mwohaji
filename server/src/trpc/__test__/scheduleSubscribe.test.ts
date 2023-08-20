@@ -7,11 +7,7 @@ test('subscribing', async () => {
   const user1 = await prisma.user.create({data: {id: '1', nickname: 'user1'}});
   const user2 = await prisma.user.create({data: {id: '2', nickname: 'user2'}});
   await prisma.scheduleSubscribe.create({
-    data: {
-      subscriberId: user1.id,
-      subscribingId: user2.id,
-      createdAt: new Date('2021-01-01'),
-    },
+    data: {subscriberId: user1.id, subscribingId: user2.id},
   });
   const {scheduleSubscribing} = await prisma.user.findUniqueOrThrow({
     where: {id: user1.id},
@@ -23,7 +19,20 @@ test('subscribing', async () => {
     .createCaller({user: user1})
     .subscribing();
 
-  expect(result).toMatchInlineSnapshot(`[]`);
+  expect(result).toStrictEqual([
+    {
+      createdAt: expect.any(Date),
+      scheduleSubscribing: {
+        createdAt: expect.any(Date),
+        deletedAt: null,
+        id: '2',
+        nickname: 'user2',
+        updatedAt: expect.any(Date),
+      },
+      subscriberId: '1',
+      subscribingId: '2',
+    },
+  ]);
 });
 
 test('subscribe', async () => {

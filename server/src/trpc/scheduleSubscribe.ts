@@ -8,8 +8,11 @@ const scheduleSubscribeRouter = router({
     const {id} = ctx.user;
 
     const scheduleSubscribes = await prisma.scheduleSubscribe.findMany({
-      where: {subscribingId: id},
+      where: {subscriberId: id},
       orderBy: {createdAt: 'desc'},
+      include: {
+        scheduleSubscribing: true,
+      },
     });
 
     return scheduleSubscribes;
