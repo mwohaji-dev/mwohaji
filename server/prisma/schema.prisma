@@ -19,10 +19,11 @@ model User {
 }
 
 model ScheduleSubscribe {
-  subscribingId       String
-  subscriberId        String
-  scheduleSubscriber  User   @relation("ScheduleSubscribers", fields: [subscriberId], references: [id])
-  scheduleSubscribing User   @relation("ScheduleSubscribing", fields: [subscribingId], references: [id])
+  createdAt           DateTime @default(now())
+  subscribingId       String // 구독당하는 사람
+  subscriberId        String // 구독자
+  scheduleSubscriber  User     @relation("ScheduleSubscribers", fields: [subscriberId], references: [id])
+  scheduleSubscribing User     @relation("ScheduleSubscribing", fields: [subscribingId], references: [id])
 
   @@id([subscribingId, subscriberId])
 }
