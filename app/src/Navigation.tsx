@@ -1,15 +1,20 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {StackScreenProps, createStackNavigator} from '@react-navigation/stack';
 import Settings from './pages/Settings';
 import BaseHeader from './components/BaseHeader';
 import NicknameEdit from './pages/NicknameEdit';
 import MyCalandar from './pages/MyCalandar';
+import UserCalandar from './pages/UserCalandar';
 
 type RootStackParamList = {
   MyCalandar: undefined;
+  UserCalandar: {nickname: string};
   Settings: undefined;
   NicknameEdit: undefined;
 };
+
+export type RootStackScreenProps<T extends keyof RootStackParamList> =
+  StackScreenProps<RootStackParamList, T>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -21,6 +26,7 @@ export default function Navigation() {
         options={{title: '플레이 캘린더'}}
         component={MyCalandar}
       />
+      <Stack.Screen name="UserCalandar" component={UserCalandar} />
       <Stack.Screen
         name="Settings"
         options={{title: '설정'}}

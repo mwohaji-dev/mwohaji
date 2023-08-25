@@ -11,7 +11,7 @@ const size = (Dimensions.get('window').width - 24 * 2 - 16 * 6) / 7;
 
 interface CalandarProps {
   schedules: Schedule[];
-  onPressSchedule: (schedule: Schedule) => void;
+  onPressSchedule?: (schedule: Schedule) => void;
 }
 
 export default function Calandar({schedules, onPressSchedule}: CalandarProps) {
@@ -54,7 +54,7 @@ export default function Calandar({schedules, onPressSchedule}: CalandarProps) {
               {schedules.map(schedule => (
                 <Pressable
                   key={schedule.id}
-                  onPress={() => onPressSchedule(schedule)}>
+                  onPress={() => onPressSchedule && onPressSchedule(schedule)}>
                   <Text style={styles.schedule}>
                     {schedule.startTime}~{schedule.endTime}
                   </Text>

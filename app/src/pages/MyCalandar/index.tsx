@@ -13,6 +13,7 @@ import useModal from '../../hooks/useModal';
 import Calandar from '../../components/Calandar';
 
 function Render() {
+  const {navigate} = useNavigation();
   const utils = trpc.useContext();
   const [{nickname}] = trpc.user.me.useSuspenseQuery();
   const [schedules] = trpc.schedule.byMe.useSuspenseQuery() as Schedule[][]; // TODO
@@ -60,6 +61,12 @@ function Render() {
     [unsubscribe],
   );
 
+  const onPressUser = useCallback(
+    (userNickname: string) => () =>
+      navigate('UserCalandar', {nickname: userNickname}),
+    [navigate],
+  );
+
   return (
     <FlatList
       data={scheduleSubscribe}
@@ -77,14 +84,16 @@ function Render() {
         </>
       }
       renderItem={({item}) => (
-        <View style={styles.card}>
+        <Pressable
+          onPress={onPressUser(item.scheduleSubscribing.nickname)}
+          style={styles.card}>
           <Text style={styles.cardNickname}>
             @{item.scheduleSubscribing.nickname}
           </Text>
           <Pressable onPress={() => onPressUnsubscribe(item.subscribingId)}>
             <Text style={styles.unsubscribe}>구독취소</Text>
           </Pressable>
-        </View>
+        </Pressable>
       )}
     />
   );

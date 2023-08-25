@@ -11,29 +11,6 @@ const userRouter = router({
   me: authorizedProcedure.query(({ctx}) => {
     return ctx.user;
   }),
-  detail: publicProcedure
-    .input(z.object({id: z.string()}))
-    .query(async ({input: {id}}) => {
-      const user = await prisma.user.findUnique({
-        where: {id},
-        include: {
-          schedules: true,
-          scheduleSubscribing: {
-            include: {
-              scheduleSubscribing: true,
-            },
-          },
-        },
-      });
-
-      if (!user) {
-        throw new TRPCError({
-          message: '유저가 없습니다.',
-          code: 'NOT_FOUND',
-        });
-      }
-      return user;
-    }),
   byNickname: publicProcedure
     .input(z.object({nickname: z.string()}))
     .query(async ({input}) => {
@@ -56,6 +33,13 @@ const userRouter = router({
           },
         },
       });
+
+      if (!user) {
+        throw new TRPCError({
+          message: '유저가 없습니다.',
+          code: 'NOT_FOUND',
+        });
+      }
 
       return user;
     }),
