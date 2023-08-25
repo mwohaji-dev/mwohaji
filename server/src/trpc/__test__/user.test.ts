@@ -1,5 +1,6 @@
 import {expect} from '@jest/globals';
 import {TRPCError} from '@trpc/server';
+import _ from 'lodash';
 import prisma from '../../configs/prisma';
 import userRouter from '../user';
 import {auth} from '../../configs/firebase';
@@ -44,6 +45,86 @@ test.each([{nickname: 'a'}, {nickname: 'a'.repeat(17)}, {nickname: '@1234'}])(
     expect(error.code).toBe('BAD_REQUEST');
   },
 );
+
+test('byNickame', async () => {
+  await prisma.user.create({
+    data: {
+      id: '1',
+      nickname: 'user1',
+      schedules: {
+        createMany: {
+          data: [
+            {
+              id: 'schedule1',
+              date: new Date('2023-05-10'),
+              startTime: 11,
+              endTime: 12,
+            },
+            {
+              id: 'schedule2',
+              date: new Date('2023-05-11'),
+              startTime: 11,
+              endTime: 12,
+            },
+            {
+              id: 'schedule3',
+              date: new Date('2023-05-13'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule4',
+              date: new Date('2023-05-17'),
+              startTime: 11,
+              endTime: 15,
+            },
+            {
+              id: 'schedule5',
+              date: new Date('2023-05-18'),
+              startTime: 11,
+              endTime: 15,
+            },
+          ],
+        },
+      },
+    },
+  });
+  const user = await userRouter
+    .createCaller({user: null})
+    .byNickname({nickname: 'user1'});
+
+  // createdAt, updatedAt DB에서 generated 되어 mocking이 불가능
+  expect(_.omit(user, ['createdAt', 'updatedAt'])).toMatchInlineSnapshot(`
+    {
+      "deletedAt": null,
+      "id": "1",
+      "nickname": "user1",
+      "schedules": [
+        {
+          "date": 2023-05-11T00:00:00.000Z,
+          "endTime": 12,
+          "id": "schedule2",
+          "startTime": 11,
+          "userId": "1",
+        },
+        {
+          "date": 2023-05-13T00:00:00.000Z,
+          "endTime": 15,
+          "id": "schedule3",
+          "startTime": 11,
+          "userId": "1",
+        },
+        {
+          "date": 2023-05-17T00:00:00.000Z,
+          "endTime": 15,
+          "id": "schedule4",
+          "startTime": 11,
+          "userId": "1",
+        },
+      ],
+    }
+  `);
+});
 
 test('editNickname duplicate', async () => {
   const user = await prisma.user.create({data: {id: 'test-id'}});

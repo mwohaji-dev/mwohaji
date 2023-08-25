@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {TRPCError} from '@trpc/server';
 import cuid from 'cuid';
+import dayjs from 'dayjs';
 import prisma from '../configs/prisma';
 import {router} from '../configs/trpc';
 import {publicProcedure, authorizedProcedure} from '../configs/procedure';
@@ -31,6 +32,31 @@ const userRouter = router({
           code: 'NOT_FOUND',
         });
       }
+      return user;
+    }),
+  byNickname: publicProcedure
+    .input(z.object({nickname: z.string()}))
+    .query(async ({input}) => {
+      const {nickname} = input;
+
+      const now = dayjs();
+      const startDate = now.format('YYYY-MM-DD');
+      const endDate = now.add(7, 'day').format('YYYY-MM-DD');
+
+      const user = await prisma.user.findUnique({
+        where: {nickname},
+        include: {
+          schedules: {
+            where: {
+              date: {
+                gte: new Date(startDate),
+                lt: new Date(endDate),
+              },
+            },
+          },
+        },
+      });
+
       return user;
     }),
   editNickname: authorizedProcedure
