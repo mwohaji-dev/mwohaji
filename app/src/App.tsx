@@ -10,7 +10,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {useMMKVNumber} from 'react-native-mmkv';
 import InAppReview from 'react-native-in-app-review';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+
 import Navigation from './Navigation';
 import {Auth} from './components/Auth';
 import Toast from 'react-native-toast-message';
@@ -38,28 +38,19 @@ function App(): JSX.Element {
 
   return (
     <>
-      <NavigationContainer
-        theme={{
-          colors: {
-            ...DefaultTheme.colors,
-            background: '#fff',
-          },
-          dark: false,
-        }}>
-        {/* <LocationProvider> */}
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
-          <QueryClientProvider client={queryClient}>
-            <SafeAreaProvider>
-              <BottomSheetModalProvider>
-                <Auth>
-                  <Navigation />
-                </Auth>
-              </BottomSheetModalProvider>
-            </SafeAreaProvider>
-          </QueryClientProvider>
-        </trpc.Provider>
-        {/* </LocationProvider> */}
-      </NavigationContainer>
+      {/* <LocationProvider> */}
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <BottomSheetModalProvider>
+              <Auth>
+                <Navigation />
+              </Auth>
+            </BottomSheetModalProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </trpc.Provider>
+      {/* </LocationProvider> */}
       <Toast />
     </>
   );

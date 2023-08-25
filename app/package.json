@@ -33,7 +33,9 @@
     "lint": "eslint . --fix && yarn typecheck",
     "lint:ci": "eslint . --max-warnings=0 && yarn typecheck",
     "splash": "yarn react-native generate-bootsplash assets/icon.png",
-    "localip": "ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"
+    "localip": "ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'",
+    "deeplink:ios": "npx uri-scheme open mwohaji://user/test --ios",
+    "deeplink:android": "npx uri-scheme open mwohaji://user/test --ios"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",

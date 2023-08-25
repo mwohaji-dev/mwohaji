@@ -3,8 +3,8 @@
 #import <CodePush/CodePush.h>
 #import "RNBootSplash.h"
 #import <RNKakaoLogins.h>
-
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTLinkingManager.h>
 
 @implementation AppDelegate
 
@@ -39,15 +39,16 @@
 
   return rootView;
 }
-// kakao login
-- (BOOL)application:(UIApplication *)app
+// deeplink
+- (BOOL)application:(UIApplication *)application
      openURL:(NSURL *)url
      options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+      // for kakao login
  if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
     return [RNKakaoLogins handleOpenUrl: url];
  }
 
- return NO;
+ return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 @end
