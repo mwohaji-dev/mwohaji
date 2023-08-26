@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import prisma from '../configs/prisma';
 import {router} from '../configs/trpc';
 import {authorizedProcedure} from '../configs/procedure';
+import {messaging} from '../configs/firebase';
 
 const scheduleRouter = router({
   add: authorizedProcedure
@@ -48,6 +49,29 @@ const scheduleRouter = router({
           userId: id,
         },
       });
+      // 구독작들에게 메시지 보내기
+      const {scheduleSubscribers, nickname} =
+        await prisma.user.findUniqueOrThrow({
+          where: {id},
+          include: {
+            scheduleSubscribers: {
+              include: {
+                scheduleSubscriber: {include: {meta: true}},
+              },
+            },
+          },
+        });
+      await Promise.all(
+        scheduleSubscribers
+          .filter(({scheduleSubscriber}) => !!scheduleSubscriber.meta)
+          .map(async ({scheduleSubscriber: {meta}}) =>
+            messaging.send({
+              token: meta?.fcmToken as string,
+              topic: `@${nickname}님이 새로운 스캐줄을 추가했습니다`,
+            }),
+          ),
+      );
+
       return schedule;
     }),
   byMe: authorizedProcedure.query(async ({ctx}) => {
