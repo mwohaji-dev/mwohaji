@@ -1836,6 +1836,11 @@
   dependencies:
     plist "^3.0.5"
 
+"@react-native-firebase/messaging@^18.3.1":
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-18.3.1.tgz#874482eec5070eb9b9c0167240063d278aeba874"
+  integrity sha512-83WPEPY7bIpyBsXv9zjlMtnPz9MotBCnx7wGG7frjPV8VSh8XLPxjiPtngy734NrRfEwqCbMoDssnWos1njq6w==
+
 "@react-native-masked-view/masked-view@^0.2.9":
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/@react-native-masked-view/masked-view/-/masked-view-0.2.9.tgz#723a7a076d56b8f5f3fda076eaa5b6b82988e854"

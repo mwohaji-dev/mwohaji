@@ -14,6 +14,7 @@ import InAppReview from 'react-native-in-app-review';
 import Navigation from './Navigation';
 import {Auth} from './components/Auth';
 import Toast from 'react-native-toast-message';
+import {MessagingProvider} from './contexts/messaging';
 
 function App(): JSX.Element {
   const [loadCount = 1, setLoadCount] = useMMKVNumber('load');
@@ -38,19 +39,19 @@ function App(): JSX.Element {
 
   return (
     <>
-      {/* <LocationProvider> */}
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>
             <BottomSheetModalProvider>
               <Auth>
-                <Navigation />
+                <MessagingProvider>
+                  <Navigation />
+                </MessagingProvider>
               </Auth>
             </BottomSheetModalProvider>
           </SafeAreaProvider>
         </QueryClientProvider>
       </trpc.Provider>
-      {/* </LocationProvider> */}
       <Toast />
     </>
   );
