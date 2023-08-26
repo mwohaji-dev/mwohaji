@@ -6,7 +6,7 @@ import SignIn from '../pages/SignIn';
 import NicknameInit from '../pages/NicknameInit';
 import {trpc} from '../configs/trpc';
 
-export function Auth({children}: PropsWithChildren) {
+export default function Auth({children}: PropsWithChildren) {
   const [firebaseUser, setFirebaseUser] =
     useState<FirebaseAuthTypes.User | null>(null);
   const authorized = useMemo(() => !!firebaseUser, [firebaseUser]);
@@ -29,5 +29,5 @@ export function Auth({children}: PropsWithChildren) {
     return <NicknameInit />;
   }
 
-  return children;
+  return <>{children}</>;
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import {PropsWithChildren, useCallback, useEffect} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import {trpc} from '../configs/trpc';
@@ -29,5 +30,5 @@ export function MessagingProvider({children}: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return children;
+  return <>{children}</>;
 }

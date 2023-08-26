@@ -12,7 +12,7 @@ import {useMMKVNumber} from 'react-native-mmkv';
 import InAppReview from 'react-native-in-app-review';
 
 import Navigation from './Navigation';
-import {Auth} from './components/Auth';
+import Auth from './components/Auth';
 import Toast from 'react-native-toast-message';
 import {MessagingProvider} from './contexts/messaging';
 
