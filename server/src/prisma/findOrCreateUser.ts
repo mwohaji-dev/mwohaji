@@ -6,6 +6,9 @@ export default async function findOrCreateUser(id: string) {
     return findedUser;
   }
 
-  const createdUser = await prisma.user.create({data: {id}});
+  const createdUser = await prisma.user.create({
+    data: {id, meta: {create: {}}},
+  });
+
   return createdUser;
 }

@@ -8,14 +8,22 @@ datasource db {
 }
 
 model User {
-  id                  String              @id
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  deletedAt           DateTime?
-  nickname            String              @unique @default(cuid())
+  id        String    @id
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  nickname  String    @unique @default(cuid())
+
+  meta                UserMeta?
   scheduleSubscribing ScheduleSubscribe[] @relation("ScheduleSubscribers") // 내가 구독하는 캘린더들
   scheduleSubscribers ScheduleSubscribe[] @relation("ScheduleSubscribing") // 내 캘린더를 구독하는 사람들
   schedules           Schedule[]
+}
+
+model UserMeta {
+  userId   String  @id
+  fcmToken String?
+  user     User    @relation(fields: [userId], references: [id])
 }
 
 model ScheduleSubscribe {
