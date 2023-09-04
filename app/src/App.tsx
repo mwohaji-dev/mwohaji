@@ -15,6 +15,7 @@ import Navigation from './Navigation';
 import Auth from './components/Auth';
 import Toast from 'react-native-toast-message';
 import {MessagingProvider} from './contexts/messaging';
+import {StatusBar} from 'react-native';
 
 function App(): JSX.Element {
   const [loadCount = 1, setLoadCount] = useMMKVNumber('load');
@@ -32,13 +33,16 @@ function App(): JSX.Element {
   }, [loadCount, setLoadCount]);
 
   useEffect(() => {
-    RNBootSplash.hide({fade: true});
+    setTimeout(() => {
+      RNBootSplash.hide({fade: true});
+    }, 500);
     requestInAppRating();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
+      <StatusBar barStyle="dark-content" />
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>
