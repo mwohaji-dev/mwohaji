@@ -6,6 +6,23 @@
 - docker >= 20
 - docker compose >= 2 (docker-compose X)
 
+# Unit Testing
+## App
+```sh
+cd app
+yarn install
+yarn test
+```
+## Server
+```sh
+cd server
+yarn install
+# docker compose를 사용해서 testing용 mysql과 firebase-emulator를 띄웁니다.
+# 권장 버전의 docker compose가 깔려있어야 합니다.
+yarn test:setup
+yarn test
+```
+
 # devenv setup
 ```sh
 docker compse build
